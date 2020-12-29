@@ -1,0 +1,45 @@
+<div class="main-sidebar">
+  <aside id="sidebar-wrapper">
+    <div class="sidebar-brand">
+      <a href="index.html">SEMAK</a>
+    </div>
+    <div class="sidebar-brand sidebar-brand-sm">
+      <a href="index.html">SMK</a>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="menu-header">Dashboard</li>
+      <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+
+      <li class="menu-header">IDENTITAS</li>
+      <li class="{{ request()->is('admin/student-data*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('student-data.index') }}">
+          <i class="fas fa-user"></i> <span>Data Mahasiswa</span>
+        </a>
+      </li>
+      <li class="{{ request()->is('admin/lecturer-data*') ? 'active' : '' }}">
+        <a class="nav-link" href="#">
+          <i class="fas fa-user-tie"></i> <span>Data Dosen</span>
+        </a>
+      </li>
+
+      <li class="menu-header">JURUSAN</li>
+      <li class="{{ request()->is('admin/major*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('major.index') }}">
+          <i class="far fa-square"></i> <span>Data Jurusan</span>
+        </a>
+      </li>
+
+      <li class="menu-header">SETTING</li>
+      <li><a class="nav-link" href="#"><i class="far fa-square"></i> <span>Pengumuman</span></a></li>
+      <li class="dropdown {{ request()->is('admin/address/*') ? 'active' : '' }}">
+        <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Alamat</span></a>
+        <ul class="dropdown-menu">
+          <li class="{{ request()->is('admin/address/province*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('province.index') }}">Provinsi</a></li>
+          <li class="{{ request()->is('admin/address/regency*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('regency.index') }}">Kabupaten/Kota</a></li>
+          <li class="{{ request()->is('admin/address/district*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('district.index') }}">Kecamatan</a></li>
+        </ul>
+      </li>
+    </ul>
+
+  </aside>
+</div>

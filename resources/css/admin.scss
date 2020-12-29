@@ -1,0 +1,8 @@
+.table.table-stripped {
+  width: unset;
+}
+
+.form-group.required .input-label:after {
+  content: " *";
+  color: red;
+}
