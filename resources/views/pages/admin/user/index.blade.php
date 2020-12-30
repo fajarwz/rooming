@@ -31,7 +31,6 @@
         <th>Username</th>
         <th>Nama</th>
         <th>Deskripsi</th>
-        <th>Aksi</th>
       </tr>
     @endslot
       
@@ -63,15 +62,32 @@
             },
             {
                 data: 'name',
-                name: 'name'
+                render: function ( data, type, row ) {
+                  return row.name 
+                  + '<div class="table-links">'
+
+                  + ' <a href="user/'+row.id+'/edit"'
+                  + ' class="text-primary">Edit</a>'
+
+                  + ' <div class="bullet"></div>'
+
+                  + ' <a href="user/'+row.id+'/change-pass"'
+                  + ' class="text-primary">Ganti Password</a>'
+
+                  + ' <div class="bullet"></div>'
+
+                  + ' <a href="javascript:;" data-id="'+row.id+'" '
+                  + ' class="text-danger"'
+                  + ' id="delete-btn"'
+                  + ' name="delete-btn">Hapus'
+                  + ' </a>'
+
+                  + '</div>';
+                }
             },
             {
                 data: 'description',
                 name: 'description'
-            },
-            {
-                data: 'action',
-                name: 'action'
             },
         ],
         order: [1, 'asc'],
@@ -80,10 +96,9 @@
 
     $(document).on('click', '#delete-btn', function() {
       var id    = $(this).data('id'); 
-      var title = 'Yakin ingin menghapus?'; 
-      var body  = '<strong>PERINGATAN</strong>:<br>'
-                  +'Pastikan tidak ada mahasiswa yang mempunyai jurusan ini!'
-      $('#delete-form').attr('action', 'major/'+id);
+      var title = 'Hapus'; 
+      var body  = 'Yakin ingin menghapus ini?'
+      $('#delete-form').attr('action', 'user/'+id);
       $('.modal-title').html(title);
       $('.modal-body').html(body);
       $('#delete-modal').modal('show');

@@ -41,6 +41,12 @@ Route::prefix('admin')
         Route::get('/user/json', [UserController::class, 'json'])
         ->name('user.json');
 
+        Route::get('/user/{id}/change-pass', [UserController::class, 'change_pass'])
+        ->name('user.change-pass');
+
+        Route::put('/user/{id}/update-pass', [UserController::class, 'update_pass'])
+        ->name('user.update-pass');
+
         Route::resources([
             'user'          => UserController::class
         ]);

@@ -15,7 +15,7 @@
       <input type="{{ $input_type }}" name="{{ $input_name }}" 
       class="form-control @isset($is_datepicker) {{ $is_datepicker }} @endisset 
       @error($input_name) is-invalid @enderror" 
-      value="@isset($input_value){{ $input_value }}@else{{ old($input_name) }}@endisset"
+      value="@isset($input_value){{ $input_value }}@else{{ ($input_type == 'password') ? '' : old($input_name) }}@endisset"
       @isset($is_disabled) {{ $is_disabled }} @endisset
       @isset($is_required) {{ $is_required }} @endisset 
       @isset($is_autofocus) {{ $is_autofocus }} @endisset>
