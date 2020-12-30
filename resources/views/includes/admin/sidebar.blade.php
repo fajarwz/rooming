@@ -10,19 +10,14 @@
       <li class="menu-header">Dashboard</li>
       <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
-      <li class="menu-header">IDENTITAS</li>
-      <li class="{{ request()->is('admin/student-data*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('student-data.index') }}">
-          <i class="fas fa-user"></i> <span>Data Mahasiswa</span>
-        </a>
-      </li>
-      <li class="{{ request()->is('admin/lecturer-data*') ? 'active' : '' }}">
-        <a class="nav-link" href="#">
-          <i class="fas fa-user-tie"></i> <span>Data Dosen</span>
+       <li class="menu-header">USER</li>
+      <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('user.index') }}">
+          <i class="fas fa-user"></i> <span>Data User</span>
         </a>
       </li>
 
-      <li class="menu-header">JURUSAN</li>
+      {{--<li class="menu-header">JURUSAN</li>
       <li class="{{ request()->is('admin/major*') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('major.index') }}">
           <i class="far fa-square"></i> <span>Data Jurusan</span>
@@ -38,7 +33,7 @@
           <li class="{{ request()->is('admin/address/regency*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('regency.index') }}">Kabupaten/Kota</a></li>
           <li class="{{ request()->is('admin/address/district*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('district.index') }}">Kecamatan</a></li>
         </ul>
-      </li>
+      </li> --}}
     </ul>
 
   </aside>

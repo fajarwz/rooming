@@ -41,4 +41,16 @@ class LoginController extends Controller
     public function username() {
         return 'username';
     }
+
+    // protected function redirectTo()
+    // {
+    //     if (auth()->user()->role == 'ADMIN') {
+    //         return '/admin';
+    //     }
+    //     return '/';
+    // }
+
+    protected function loggedOut(Request $request) {
+        return redirect('/login');
+    }
 }

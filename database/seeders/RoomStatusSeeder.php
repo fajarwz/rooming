@@ -14,17 +14,16 @@ class RoomStatusSeeder extends Seeder
      */
     public function run()
     {
-        RoomStatus::create(
-            [
-                'id'            => 1,
-                'room_id'       => 1,
-                'status'        => 'FREE',
-            ],
-            [
-                'id'            => 2,
-                'room_id'       => 2,
-                'status'        => 'BOOKED',
-            ],
-        );
+        RoomStatus::create([
+            'id'            => 1,
+            'room_id'       => 1,
+            'status'        => 'FREE',
+        ]);
+
+        RoomStatus::create([
+            'id'            => 2,
+            'room_id'       => 2,
+            'status'        => 'BOOKED',
+        ]);
     }
 }

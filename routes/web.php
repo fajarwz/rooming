@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\UserController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +18,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Auth::routes(['register' => false, 'reset' => false]);
 
-Auth::routes();
+Route::prefix('/')
+    ->get('/', [UserDashboardController::class, 'index'])
+    ->middleware(['auth', 'which.home'])
+    ->name('user.dashboard');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('/')
+    ->middleware(['auth', 'is.user'])
+    ->group(function(){
+        // Route::get('/', [UserDashboardController::class, 'index'])
+        // ->name('user.dashboard');
+    });
+
+Route::prefix('admin')
+    ->middleware(['auth', 'is.admin'])
+    ->group(function(){
+        Route::get('/', [AdminDashboardController::class, 'index'])
+        ->name('admin.dashboard');
+
+        Route::get('/user/json', [UserController::class, 'json'])
+        ->name('user.json');
+
+        Route::resources([
+            'user'          => UserController::class
+        ]);
+    });

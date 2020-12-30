@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard Admin - SEMAK')
+@section('title', 'Dashboard User - SEMAK')
 
 @section('header-title', 'Dashboard')
 
