@@ -91,6 +91,9 @@
             },
         ],
         order: [1, 'asc'],
+        columnDefs: [
+            { responsivePriority: 1, targets: 2 },
+        ],
         stateSave: true
     });
 

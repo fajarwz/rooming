@@ -11,7 +11,7 @@
       <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
       <div class="dropdown-menu dropdown-menu-right">
 
-        <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <a href="javascript:;" class="dropdown-item has-icon text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
           <i class="fas fa-sign-out-alt"></i> Logout
         </a>
         
