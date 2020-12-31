@@ -64,10 +64,15 @@
             {
                 data: 'name',
                 render: function ( data, type, row ) {
-                  return row.name 
-                  + '<div id="hidden-btn" class="table-links">'
+                  var result = row.name;
 
-                  + ' <a href="user/'+row.id+'/edit"'
+                  if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) {
+                    result += '<div class="table-links">';
+                  } else {
+                    result += '<div>';
+                  }
+
+                  result += ' <a href="user/'+row.id+'/edit"'
                   + ' class="text-primary">Edit</a>'
 
                   + ' <div class="bullet"></div>'
@@ -82,8 +87,9 @@
                   + ' id="delete-btn"'
                   + ' name="delete-btn">Hapus'
                   + ' </a>'
-
                   + '</div>';
+
+                  return result;
                 }
             },
             {

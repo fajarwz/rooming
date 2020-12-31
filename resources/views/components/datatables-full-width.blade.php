@@ -42,7 +42,13 @@
       language: {
         url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"
       },
-      responsive: true
+      responsive: {
+          details: {
+              display: $.fn.dataTable.Responsive.display.childRowImmediate,
+              type: 'none',
+              target: ''
+          }
+      }
     });
   </script>
 

@@ -11,7 +11,7 @@
 
         <li class="menu-header">Dashboard</li>
         <li><a class="nav-link" href="{{ route('user.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
-        
+
       @endif
 
       @if (Auth::user()->role == 'ADMIN')
@@ -25,6 +25,13 @@
             <i class="fas fa-user"></i> <span>Data User</span>
           </a>
         </li>
+
+        {{-- <li class="menu-header">RUANGAN</li>
+        <li class="{{ request()->is('admin/room*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('room.index') }}">
+            <i class="fas fa-user"></i> <span>Data Ruangan</span>
+          </a>
+        </li> --}}
 
       @endif
 
