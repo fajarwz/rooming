@@ -26,12 +26,12 @@
           </a>
         </li>
 
-        {{-- <li class="menu-header">RUANGAN</li>
+        <li class="menu-header">RUANGAN</li>
         <li class="{{ request()->is('admin/room*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('room.index') }}">
             <i class="fas fa-user"></i> <span>Data Ruangan</span>
           </a>
-        </li> --}}
+        </li>
 
       @endif
 

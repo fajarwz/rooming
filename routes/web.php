@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoomController;
 
 
 /*
@@ -18,7 +19,7 @@ use App\Http\Controllers\Admin\UserController;
 |
 */
 
-Auth::routes(['register' => false, 'reset' => false]);
+Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
 Route::prefix('/')
     ->get('/', [UserDashboardController::class, 'index'])
@@ -47,7 +48,11 @@ Route::prefix('admin')
         Route::put('/user/{id}/update-pass', [UserController::class, 'update_pass'])
         ->name('user.update-pass');
 
+        Route::get('/room/json', [RoomController::class, 'json'])
+        ->name('room.json');
+
         Route::resources([
-            'user'          => UserController::class
+            'user'          => UserController::class,
+            'room'          => RoomController::class,
         ]);
     });

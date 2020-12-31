@@ -5,18 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\User;
+use App\Models\Room;
 
-use App\Http\Requests\Admin\UserAddRequest;
-use App\Http\Requests\Admin\UserEditRequest;
-use App\Http\Requests\Admin\UserChangePassRequest;
+use App\Http\Requests\Admin\RoomRequest;
 
 use DataTables;
 
-class UserController extends Controller
+class RoomController extends Controller
 {
     public function json(){
-        $data = User::where('role', 'USER');
+        $data = Room::all();
 
         return DataTables::of($data)
         ->addIndexColumn()
@@ -30,7 +28,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.user.index');
+        return view('pages.admin.room.index');
     }
 
     /**
@@ -40,7 +38,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.user.create');
+        return view('pages.admin.room.edit_or_create');
     }
 
     /**
@@ -49,7 +47,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserAddRequest $request)
+    public function store(RoomRequest $request)
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
@@ -126,33 +124,6 @@ class UserController extends Controller
             session()->flash('alert-failed-update', 'User '.$item->name.' gagal dihapus');
         }
 
-        return redirect()->route('user.index');
-    }
-
-    public function change_pass($id)
-    {
-        $item = User::select('id', 'name')->where('id', $id)->first();
-
-        return view('pages.admin.user.change-pass', [
-            'item'  => $item 
-        ]);
-    }
-
-    public function update_pass(UserChangePassRequest $request, $id)
-    {
-        $data['password'] = $request->input('password');
-        $data['password'] = bcrypt($data['password']);
-
-        $item = User::select('name')->where('id', $id)->first();
-
-        // if (Hash::check($data['current_password'], $item->password)) {
-            if($item->update(['password'=> $data['password']])) {
-                session()->flash('alert-success-update', 'Password User '.$item->name.' berhasil diupdate');
-            } else {
-                session()->flash('alert-failed-update', 'Password User '.$item->name.' gagal diupdate');
-            }   
-        // } 
-        
         return redirect()->route('user.index');
     }
 }
