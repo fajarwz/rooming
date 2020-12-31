@@ -37,14 +37,6 @@
     @slot('input_form')
 
       @component('components.input-field')
-          @slot('input_label', 'Password Sekarang')
-          @slot('input_type', 'password')
-          @slot('input_name', 'current_password')
-          @slot('is_required', 'required')
-          @slot('is_autofocus', 'autofocus')
-      @endcomponent
-
-      @component('components.input-field')
           @slot('input_label', 'Password Baru')
           @slot('input_type', 'password')
           @slot('input_name', 'password')

@@ -13,6 +13,7 @@ use App\Http\Requests\Admin\UserEditRequest;
 use App\Http\Requests\Admin\UserChangePassRequest;
 
 use DataTables;
+use Validator;
 
 class UserController extends Controller
 {
@@ -53,6 +54,7 @@ class UserController extends Controller
     public function store(UserAddRequest $request)
     {
         $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
         
         if(User::create($data)) {
             $request->session()->flash('alert-success-add', 'User '.$data['name'].' berhasil ditambahkan');
@@ -140,16 +142,18 @@ class UserController extends Controller
 
     public function update_pass(UserChangePassRequest $request, $id)
     {
-        $data = $request->all();
-        $item = User::select('password', 'name')->where('id', $id)->first();
+        $data['password'] = $request->input('password');
+        $data['password'] = bcrypt($data['password']);
 
-        if (Hash::check($data['current_password'], $item->password)) {
-            if($item->update($data['password'])) {
-                $request->session()->flash('alert-success-update', 'Password User '.$item->name.' berhasil diupdate');
+        $item = User::select('name')->where('id', $id)->first();
+
+        // if (Hash::check($data['current_password'], $item->password)) {
+            if($item->update(['password'=> $data['password']])) {
+                session()->flash('alert-success-update', 'Password User '.$item->name.' berhasil diupdate');
             } else {
-                $request->session()->flash('alert-failed-update', 'Password User '.$item->name.' gagal diupdate');
+                session()->flash('alert-failed-update', 'Password User '.$item->name.' gagal diupdate');
             }   
-        }
+        // } 
         
         return redirect()->route('user.index');
     }

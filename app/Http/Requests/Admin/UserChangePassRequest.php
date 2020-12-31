@@ -24,7 +24,6 @@ class UserChangePassRequest extends FormRequest
     public function rules()
     {
         return [
-            'current_password'  => 'required',
             'password'          => 'required|string|min:3|max:20',
             'confirm_password'  => 'same:password',
         ];
@@ -38,7 +37,6 @@ class UserChangePassRequest extends FormRequest
     public function messages()
     {
         return [
-            'current_password.required' => 'Password Sekarang tidak boleh kosong',
             'password.required'         => 'Password Baru tidak boleh kosong',
             'password.min'              => 'Password Baru tidak boleh kurang dari 3 karakter',
             'password.max'              => 'Password Baru tidak boleh lebih dari 20 karakter',

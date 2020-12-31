@@ -47,7 +47,8 @@
   @include('includes.datatables-scripts')
 
   <script>
-    $('#user-table').DataTable({
+    $(document).ready(function() {
+      $('#user-table').DataTable({
         processing: true,
         serverSide: true,
         ajax: '{{ route('user.json') }}',
@@ -64,7 +65,7 @@
                 data: 'name',
                 render: function ( data, type, row ) {
                   return row.name 
-                  + '<div class="table-links">'
+                  + '<div id="hidden-btn" class="table-links">'
 
                   + ' <a href="user/'+row.id+'/edit"'
                   + ' class="text-primary">Edit</a>'
@@ -95,16 +96,20 @@
             { responsivePriority: 1, targets: 2 },
         ],
         stateSave: true
-    });
+      });
 
-    $(document).on('click', '#delete-btn', function() {
-      var id    = $(this).data('id'); 
-      var title = 'Hapus'; 
-      var body  = 'Yakin ingin menghapus ini?'
-      $('#delete-form').attr('action', 'user/'+id);
-      $('.modal-title').html(title);
-      $('.modal-body').html(body);
-      $('#delete-modal').modal('show');
+      $(document).on('click', '#delete-btn', function() {
+        var id    = $(this).data('id'); 
+        var title = 'Hapus'; 
+        var body  = 'Yakin ingin menghapus ini?'
+        $('#delete-form').attr('action', 'user/'+id);
+        $('.modal-title').html(title);
+        $('.modal-body').html(body);
+        $('#delete-modal').modal('show');
+      });
+    
+      
+        // $('#user-table').removeClass('table-links');
     });
 
 </script>

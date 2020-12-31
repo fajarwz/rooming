@@ -7,15 +7,26 @@
       <a href="index.html">SMK</a>
     </div>
     <ul class="sidebar-menu">
-      <li class="menu-header">Dashboard</li>
-      <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+      @if (Auth::user()->role == 'USER')
 
-       <li class="menu-header">USER</li>
-      <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('user.index') }}">
-          <i class="fas fa-user"></i> <span>Data User</span>
-        </a>
-      </li>
+        <li class="menu-header">Dashboard</li>
+        <li><a class="nav-link" href="{{ route('user.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+        
+      @endif
+
+      @if (Auth::user()->role == 'ADMIN')
+
+        <li class="menu-header">Dashboard</li>
+        <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+
+        <li class="menu-header">USER</li>
+        <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('user.index') }}">
+            <i class="fas fa-user"></i> <span>Data User</span>
+          </a>
+        </li>
+
+      @endif
 
       {{--<li class="menu-header">JURUSAN</li>
       <li class="{{ request()->is('admin/major*') ? 'active' : '' }}">
