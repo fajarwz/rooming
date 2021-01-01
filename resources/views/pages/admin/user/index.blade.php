@@ -53,16 +53,17 @@
         ajax: '{{ route('user.json') }}',
         columns: [
             {
-                data: 'DT_RowIndex',
                 name: 'DT_RowIndex',
+                data: 'DT_RowIndex',
                 orderable: false, 
                 searchable: false
             },
             {
+                name: 'username',
                 data: 'username',
-                name: 'username'
             },
             {
+                name: 'name',
                 data: 'name',
                 render: function ( data, type, row ) {
                   var result = row.name;
@@ -86,6 +87,8 @@
                   + ' <div class="bullet"></div>'
 
                   + ' <a href="javascript:;" data-id="'+row.id+'" '
+                  + ' data-title="Hapus"'
+                  + ' data-body="Yakin ingin menghapus ini?"'
                   + ' class="text-danger"'
                   + ' id="delete-btn"'
                   + ' name="delete-btn">Hapus'
@@ -96,21 +99,25 @@
                 }
             },
             {
+                name: 'description',
                 data: 'description',
-                name: 'description'
             },
         ],
         order: [1, 'asc'],
       });
 
       $(document).on('click', '#delete-btn', function() {
-        var id    = $(this).data('id'); 
-        var title = 'Hapus'; 
-        var body  = 'Yakin ingin menghapus ini?'
-        $('#delete-form').attr('action', 'user/'+id);
+        var id    = $(this).data('id');
+        var title = $(this).data('title');
+        var body  = $(this).data('body');
+
         $('.modal-title').html(title);
         $('.modal-body').html(body);
-        $('#delete-modal').modal('show');
+        $('#confirm-form').attr('action', 'user/'+id);
+        $('#confirm-form').attr('method', 'POST');
+        $('#submit-btn').attr('class', 'btn btn-danger');
+        $('#lara-method').attr('value', 'delete');
+        $('#confirm-modal').modal('show');
       });
     
     });
@@ -119,6 +126,6 @@
 
 @include('includes.notification')
 
-@include('includes.delete-modal')
+@include('includes.confirm-modal')
 
 @endpush

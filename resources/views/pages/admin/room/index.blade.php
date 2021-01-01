@@ -50,12 +50,13 @@
       ajax: '{{ route('room.json') }}',
       columns: [
       {
-        data: 'DT_RowIndex',
         name: 'DT_RowIndex',
+        data: 'DT_RowIndex',
         orderable: false, 
         searchable: false
       },
       {
+        name: 'photo',
         data: 'photo',
         render: function ( data, type, row ) {
           if(data != null) {
@@ -70,6 +71,7 @@
         }
       },
       {
+        name: 'name',
         data: 'name',
         render: function ( data, type, row ) {
           var result = row.name;
@@ -88,6 +90,8 @@
           + ' <div class="bullet"></div>'
 
           + ' <a href="javascript:;" data-id="'+row.id+'" '
+          + ' data-title="Hapus"'
+          + ' data-body="Yakin ingin menghapus ini?"'
           + ' class="text-danger"'
           + ' id="delete-btn"'
           + ' name="delete-btn">Hapus'
@@ -99,16 +103,24 @@
         }
       },
       {
+        name: 'description',
         data: 'description',
-        name: 'description'
       },
       {
+        name: 'capacity',
         data: 'capacity',
-        name: 'capacity'
       },
       {
+        name: 'status',
         data: 'room_status.status',
-        name: 'room_status.status'
+        render: function ( data, type, row ) {
+          if(data === 'ADA') 
+            return `<span class="badge badge-success">${data}</span>`;
+          else if(data === 'DIBOOKING')
+            return `<span class="badge badge-primary">${data}</span>`;
+          else 
+            return `<span class="badge badge-danger">${data}</span>`;
+        } 
       },
     ],
       order: [2, 'asc'],
@@ -117,12 +129,16 @@
 
     $(document).on('click', '#delete-btn', function() {
       var id    = $(this).data('id'); 
-      var title = 'Hapus'; 
-      var body  = 'Yakin ingin menghapus ini?'
-      $('#delete-form').attr('action', 'room/'+id);
+      var title = $(this).data('title');
+      var body  = $(this).data('body');
+
       $('.modal-title').html(title);
       $('.modal-body').html(body);
-      $('#delete-modal').modal('show');
+      $('#confirm-form').attr('action', 'room/'+id);
+      $('#confirm-form').attr('method', 'POST');
+      $('#submit-btn').attr('class', 'btn btn-danger');
+      $('#lara-method').attr('value', 'delete');
+      $('#confirm-modal').modal('show');
     });
 
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
@@ -137,6 +153,6 @@
 
 @include('includes.notification')
 
-@include('includes.delete-modal')
+@include('includes.confirm-modal')
 
 @endpush

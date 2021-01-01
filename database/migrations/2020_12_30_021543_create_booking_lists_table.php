@@ -20,7 +20,8 @@ class CreateBookingListsTable extends Migration
             $table->date('date'); 
             $table->time('start_time');
             $table->time('end_time');
-            $table->string('purpose', 100); 
+            $table->string('purpose', 100);
+            $table->enum('status', ['PENDING', 'DISETUJUI', 'DITOLAK', 'BATAL', 'SELESAI']);
             $table->softDeletes();
             $table->timestamps();
         });

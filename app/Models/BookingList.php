@@ -31,7 +31,14 @@ class BookingList extends Model
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        
     ];
+
+    public function room(){
+        return $this->hasOne(Room::class, 'id', 'room_id');
+    }
+
+    public function user(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

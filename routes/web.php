@@ -6,7 +6,7 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoomController;
-
+use App\Http\Controllers\Admin\BookingListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +50,15 @@ Route::prefix('admin')
 
         Route::get('/room/json', [RoomController::class, 'json'])
         ->name('room.json');
+
+        Route::get('/booking-list/json', [BookingListController::class, 'json'])
+        ->name('booking-list.json');
+
+        Route::get('/booking-list', [BookingListController::class, 'index'])
+        ->name('booking-list.index');
+
+        Route::put('/booking-list/{id}/update/{value}', [BookingListController::class, 'update'])
+        ->name('booking-list.update');
 
         Route::resources([
             'user'          => UserController::class,

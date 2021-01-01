@@ -1,4 +1,4 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="delete-modal" 
+<div class="modal fade" tabindex="-1" role="dialog" id="confirm-modal" 
   aria-hidden="true" style="display: none;">       
   <div class="modal-dialog modal-md" role="document">         
     <div class="modal-content">           
@@ -12,13 +12,12 @@
         
       </div>
       <div class="modal-footer">
-        <?php $data_id ?>
-        <form id="delete-form" action="" method="POST"
+        <form id="confirm-form" action="" method=""
           class="d-inline">
           @csrf 
-          @method('delete')
-          <button type="submit" class="btn btn-danger">
-              Delete 
+          <input type="hidden" id="lara-method" name="_method" value="">
+          <button type="submit" id="submit-btn" class="">
+              Ya
           </button>
         </form>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

@@ -19,17 +19,22 @@
         <li class="menu-header">Dashboard</li>
         <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
-        <li class="menu-header">USER</li>
+        <li class="menu-header">DATA MASTER</li>
         <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('user.index') }}">
-            <i class="fas fa-user"></i> <span>Data User</span>
+            <i class="fas fa-user"></i> <span>User</span>
+          </a>
+        </li>
+        <li class="{{ request()->is('admin/room*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('room.index') }}">
+            <i class="fas fa-door-open"></i> <span>Ruangan</span>
           </a>
         </li>
 
-        <li class="menu-header">RUANGAN</li>
-        <li class="{{ request()->is('admin/room*') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('room.index') }}">
-            <i class="fas fa-user"></i> <span>Data Ruangan</span>
+        <li class="menu-header">TRANSAKSI</li>
+        <li class="{{ request()->is('admin/booking-list*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('booking-list.index') }}">
+            <i class="fas fa-list"></i> <span>Booking List</span>
           </a>
         </li>
 

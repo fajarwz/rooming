@@ -16,7 +16,7 @@ class CreateRoomStatusesTable extends Migration
         Schema::create('room_statuses', function (Blueprint $table) {
             $table->id();
             $table->integer('room_id');
-            $table->enum('status', ['BOOKED', 'FREE'])->default('FREE');
+            $table->enum('status', ['DIBOOKING', 'ADA', 'DITUTUP'])->default('ADA');
             $table->softDeletes();
             $table->timestamps();
         });
