@@ -32,6 +32,7 @@
         <th>Nama</th>
         <th>Deskripsi</th>
         <th>Kapasitas</th>
+        <th>Status</th>
       </tr>
     @endslot
       
@@ -42,6 +43,7 @@
 @push('after-script')
 
   <script>
+  $(document).ready(function() {
     $('#room-table').DataTable({
       processing: true,
       serverSide: true,
@@ -56,12 +58,15 @@
       {
         data: 'photo',
         render: function ( data, type, row ) {
-            return '<div class="gallery">'
-                + `<div class="gallery-item" data-image="{{ asset('storage/${data}') }}"` 
-                + `data-title="Image 1" href="{{ asset('storage/${data}') }}"`
-                + 'title="" '
-                + `style="background-image: url('{{ asset('storage/${data}') }}');"></div>`
+          if(data != null) {
+            return `<div class="gallery gallery-fw">`
+              + `<a href="{{ asset('storage/${data}') }}" data-toggle="lightbox">`
+              + `<img src="{{ asset('storage/${data}') }}" class="img-fluid">`
+              + `</a>`
             + '</div>';
+          } else {
+            return '-'
+          }
         }
       },
       {
@@ -69,10 +74,12 @@
         render: function ( data, type, row ) {
           var result = row.name;
 
-          if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) {
-            result += '<div class="table-links">';
-          } else {
+          var is_touch_device = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+          if (is_touch_device) {
             result += '<div>';
+          } else {
+            result += '<div class="table-links">';
           }
 
           result += ' <a href="room/'+row.id+'/edit"'
@@ -99,9 +106,14 @@
         data: 'capacity',
         name: 'capacity'
       },
+      {
+        data: 'room_status.status',
+        name: 'room_status.status'
+      },
     ],
-    order: [2, 'asc'],
-  });
+      order: [2, 'asc'],
+    });
+  
 
     $(document).on('click', '#delete-btn', function() {
       var id    = $(this).data('id'); 
@@ -113,7 +125,15 @@
       $('#delete-modal').modal('show');
     });
 
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+  });
+
 </script>
+
+@include('includes.lightbox')
 
 @include('includes.notification')
 

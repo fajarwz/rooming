@@ -38,8 +38,10 @@ class UserEditRequest extends FormRequest
     {
         return [
             'name.required'         => 'Nama tidak boleh kosong',
+            'name.string'           => 'Nama harus berupa string',
             'name.max'              => 'Nama tidak boleh lebih dari 20 karakter',
             'description.max'       => 'Deskripsi tidak boleh lebih dari 20 karakter',
+            'description.string'    => 'Deskripsi harus berupa string',
         ];
     }
 }

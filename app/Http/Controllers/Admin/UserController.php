@@ -55,9 +55,9 @@ class UserController extends Controller
         $data['password'] = bcrypt($data['password']);
         
         if(User::create($data)) {
-            $request->session()->flash('alert-success-add', 'User '.$data['name'].' berhasil ditambahkan');
+            $request->session()->flash('alert-success', 'User '.$data['name'].' berhasil ditambahkan');
         } else {
-            $request->session()->flash('alert-failed-update', 'User '.$data['name'].' gagal ditambahkan');
+            $request->session()->flash('alert-failed', 'User '.$data['name'].' gagal ditambahkan');
         }
 
         return redirect()->route('user.index');
@@ -102,9 +102,9 @@ class UserController extends Controller
         $item = User::findOrFail($id);
 
         if($item->update($data)) {
-            $request->session()->flash('alert-success-update', 'User '.$data['name'].' berhasil diupdate');
+            $request->session()->flash('alert-success', 'User '.$data['name'].' berhasil diupdate');
         } else {
-            $request->session()->flash('alert-failed-update', 'User '.$data['name'].' gagal diupdate');
+            $request->session()->flash('alert-failed', 'User '.$data['name'].' gagal diupdate');
         }
         
         return redirect()->route('user.index');
@@ -121,9 +121,9 @@ class UserController extends Controller
         $item = User::findOrFail($id);
         
         if($item->delete()) {
-            session()->flash('alert-success-delete', 'User '.$item->name.' berhasil dihapus!');
+            session()->flash('alert-success', 'User '.$item->name.' berhasil dihapus!');
         } else {
-            session()->flash('alert-failed-update', 'User '.$item->name.' gagal dihapus');
+            session()->flash('alert-failed', 'User '.$item->name.' gagal dihapus');
         }
 
         return redirect()->route('user.index');
@@ -147,9 +147,9 @@ class UserController extends Controller
 
         // if (Hash::check($data['current_password'], $item->password)) {
             if($item->update(['password'=> $data['password']])) {
-                session()->flash('alert-success-update', 'Password User '.$item->name.' berhasil diupdate');
+                session()->flash('alert-success', 'Password User '.$item->name.' berhasil diupdate');
             } else {
-                session()->flash('alert-failed-update', 'Password User '.$item->name.' gagal diupdate');
+                session()->flash('alert-failed', 'Password User '.$item->name.' gagal diupdate');
             }   
         // } 
         

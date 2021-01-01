@@ -30,4 +30,8 @@ class Room extends Model
     protected $hidden = [
         
     ];
+
+    public function room_status(){
+        return $this->hasOne(RoomStatus::class);
+    }
 }

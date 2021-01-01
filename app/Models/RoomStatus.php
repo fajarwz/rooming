@@ -28,4 +28,8 @@ class RoomStatus extends Model
     protected $hidden = [
 
     ];
+
+    public function room(){
+        return $this->belongsTo(Room::class);
+    }
 }

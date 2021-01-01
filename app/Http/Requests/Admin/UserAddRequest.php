@@ -41,16 +41,20 @@ class UserAddRequest extends FormRequest
     {
         return [
             'username.required'     => 'Username tidak boleh kosong',
+            'username.string'       => 'Username harus berupa string',
             'username.min'          => 'Username tidak boleh kurang dari 3 karakter',
             'username.max'          => 'Username tidak boleh lebih dari 20 karakter',
             'username.unique'       => 'Username tidak tersedia',
             'password.required'     => 'Password tidak boleh kosong',
+            'password.string'       => 'Password harus berupa string',
             'password.min'          => 'Password tidak boleh kurang dari 3 karakter',
             'password.max'          => 'Password tidak boleh lebih dari 20 karakter',
             'confirm_password.same' => 'Confirm Password harus sama dengan Password',
             'name.required'         => 'Nama tidak boleh kosong',
+            'name.string'           => 'Nama harus berupa string',
             'name.max'              => 'Nama tidak boleh lebih dari 20 karakter',
             'description.max'       => 'Deskripsi tidak boleh lebih dari 20 karakter',
+            'description.string'    => 'Deskripsi harus berupa string',
         ];
     }
 }

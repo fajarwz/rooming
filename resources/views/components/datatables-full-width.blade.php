@@ -10,7 +10,7 @@
         @endisset
         
         <div class="table-responsive">
-          <table class="table table-striped w-100" id="{{ $table_id }}">
+          <table class="table table-striped w-100" data-scroll-y="400" id="{{ $table_id }}">
             <thead>
               {{ $table_header }}
             </thead>
@@ -36,8 +36,7 @@
         defaultContent: '-'
       },
       stateSave: true,
-      scrollX: true,
-      scrollY: "400px",
+      // scrollY: "400px",
       scrollCollapse: true,
       language: {
         url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json"

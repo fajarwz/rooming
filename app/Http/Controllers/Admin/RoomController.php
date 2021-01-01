@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Room;
+use App\Models\RoomStatus;
 
 use App\Http\Requests\Admin\RoomRequest;
 
@@ -14,7 +15,9 @@ use DataTables;
 class RoomController extends Controller
 {
     public function json(){
-        $data = Room::all();
+        $data = Room::with([
+            'room_status'
+        ]);
 
         return DataTables::of($data)
         ->addIndexColumn()
@@ -50,15 +53,31 @@ class RoomController extends Controller
     public function store(RoomRequest $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-        
-        if(User::create($data)) {
-            $request->session()->flash('alert-success-add', 'User '.$data['name'].' berhasil ditambahkan');
-        } else {
-            $request->session()->flash('alert-failed-update', 'User '.$data['name'].' gagal ditambahkan');
+
+        if(isset($data['photo'])){
+            $data['photo']          = $request->file('photo')->store(
+                'assets/image/room', 'public'
+            );
         }
 
-        return redirect()->route('user.index');
+        $create_room = Room::create($data);
+        $room_id = $create_room->id;
+        
+        if($create_room) {
+            $create_room_status = RoomStatus::create([
+                'room_id'   => $room_id,
+                'status'    => 'FREE',
+            ]);
+            if($create_room_status) {
+                $request->session()->flash('alert-success', 'Ruang '.$data['name'].' berhasil ditambahkan');
+            } else {
+                $request->session()->flash('alert-failed', 'Ada masalah dalam penetapan status ruangan.');
+            }
+        } else {
+            $request->session()->flash('alert-failed', 'Ruang '.$data['name'].' gagal ditambahkan');
+        }
+
+        return redirect()->route('room.index');
     }
 
     /**
@@ -80,9 +99,9 @@ class RoomController extends Controller
      */
     public function edit($id)
     {
-        $item = User::select('id', 'name', 'description')->where('id', $id)->first();
+        $item = Room::findOrFail($id);
 
-        return view('pages.admin.user.edit', [
+        return view('pages.admin.room.edit_or_create', [
             'item'  => $item 
         ]);
     }
@@ -94,18 +113,25 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserEditRequest $request, $id)
+    public function update(RoomRequest $request, $id)
     {
         $data = $request->all();
-        $item = User::findOrFail($id);
+
+        if(isset($data['photo'])){
+            $data['photo']          = $request->file('photo')->store(
+                'assets/image/room', 'public'
+            );
+        }
+
+        $item = Room::findOrFail($id);
 
         if($item->update($data)) {
-            $request->session()->flash('alert-success-update', 'User '.$data['name'].' berhasil diupdate');
+            $request->session()->flash('alert-success', 'Ruang '.$item->name.' berhasil diupdate');
         } else {
-            $request->session()->flash('alert-failed-update', 'User '.$data['name'].' gagal diupdate');
+            $request->session()->flash('alert-failed', 'Ruang '.$item->name.' gagal diupdate');
         }
         
-        return redirect()->route('user.index');
+        return redirect()->route('room.index');
     }
 
     /**
@@ -116,14 +142,14 @@ class RoomController extends Controller
      */
     public function destroy($id)
     {
-        $item = User::findOrFail($id);
+        $item = Room::findOrFail($id);
         
         if($item->delete()) {
-            session()->flash('alert-success-delete', 'User '.$item->name.' berhasil dihapus!');
+            session()->flash('alert-success', 'Ruang '.$item->name.' berhasil dihapus!');
         } else {
-            session()->flash('alert-failed-update', 'User '.$item->name.' gagal dihapus');
+            session()->flash('alert-failed', 'Ruang '.$item->name.' gagal dihapus');
         }
 
-        return redirect()->route('user.index');
+        return redirect()->route('room.index');
     }
 }

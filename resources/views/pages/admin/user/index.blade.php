@@ -39,7 +39,6 @@
 @endsection
 
 @push('after-style')
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
   @include('includes.datatables-styles')
 @endpush
 
@@ -68,10 +67,12 @@
                 render: function ( data, type, row ) {
                   var result = row.name;
 
-                  if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) {
-                    result += '<div class="table-links">';
-                  } else {
+                  var is_touch_device = 'ontouchstart' in window || navigator.msMaxTouchPoints;
+
+                  if (is_touch_device) {
                     result += '<div>';
+                  } else {
+                    result += '<div class="table-links">';
                   }
 
                   result += ' <a href="user/'+row.id+'/edit"'
@@ -100,10 +101,6 @@
             },
         ],
         order: [1, 'asc'],
-        columnDefs: [
-            { responsivePriority: 1, targets: 2 },
-        ],
-        stateSave: true
       });
 
       $(document).on('click', '#delete-btn', function() {
@@ -116,8 +113,6 @@
         $('#delete-modal').modal('show');
       });
     
-      
-        // $('#user-table').removeClass('table-links');
     });
 
 </script>

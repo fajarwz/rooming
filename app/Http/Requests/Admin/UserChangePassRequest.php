@@ -38,6 +38,7 @@ class UserChangePassRequest extends FormRequest
     {
         return [
             'password.required'         => 'Password Baru tidak boleh kosong',
+            'password.string'           => 'Password harus berupa string',
             'password.min'              => 'Password Baru tidak boleh kurang dari 3 karakter',
             'password.max'              => 'Password Baru tidak boleh lebih dari 20 karakter',
             'confirm_password.same'     => 'Confirm Password Baru harus sama dengan Password Baru',
