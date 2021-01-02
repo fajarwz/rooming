@@ -34,8 +34,8 @@ class BookingList extends Model
         
     ];
 
-    public function room(){
-        return $this->hasOne(Room::class, 'id', 'room_id');
+    public function room_status(){
+        return $this->hasOne(RoomStatus::class, 'room_id', 'room_id');
     }
 
     public function user(){

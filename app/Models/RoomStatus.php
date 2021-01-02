@@ -30,6 +30,6 @@ class RoomStatus extends Model
     ];
 
     public function room(){
-        return $this->belongsTo(Room::class);
+        return $this->hasOne(Room::class, 'id', 'room_id');
     }
 }

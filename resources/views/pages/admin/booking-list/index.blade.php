@@ -44,7 +44,7 @@
 
   <script>
   $(document).ready(function() {
-    $.fn.dataTable.enum( [ 'PENDING', 'DIBOOKING', 'SELESAI', 'BATAL' ] );
+    $.fn.dataTable.enum( [ 'PENDING', 'DIBOOKING', 'DITOLAK', 'SELESAI', 'BATAL' ] );
 
     $('#booking-list-table').DataTable({
       processing: true,
@@ -59,7 +59,7 @@
       },
       {
         name: 'room.photo',
-        data: 'room.photo',
+        data: 'room_status.room.photo',
         render: function ( data, type, row ) {
           if(data != null) {
             return `<div class="gallery gallery-fw">`
@@ -74,9 +74,9 @@
       },
       {
         name: 'room.name',
-        data: 'room.name',
+        data: 'room_status.room.name',
         render: function ( data, type, row ) {
-          var result = row.name;
+          var result = data;
 
           var is_touch_device = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 
@@ -173,7 +173,7 @@
 
       $('.modal-title').html(title);
       $('.modal-body').html(body);
-      $('#confirm-form').attr('action', 'booking-list/'+id+'/update/'+value);
+      $('#confirm-form').attr('action', '/admin/booking-list/'+id+'/update/'+value);
       $('#confirm-form').attr('method', 'POST');
       $('#submit-btn').attr('class', submit_btn_class);
       $('#lara-method').attr('value', 'put');

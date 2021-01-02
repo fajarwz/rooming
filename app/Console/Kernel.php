@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\BookingListStartCommand',
+        'App\Console\Commands\BookingListFinishCommand',
     ];
 
     /**
@@ -24,7 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('booking:start')->everyMinute();
+        $schedule->command('booking:finish')->everyMinute();
     }
 
     /**

@@ -11,22 +11,70 @@
     
 @section('content')
 <div class="row">
-  Dashboard Admin
-  <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-    <div class="card card-statistic-1">
-      <div class="card-icon bg-primary">
-        <i class="far fa-user"></i>
+
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="card card-statistic-2">
+      <div class="card-stats">
+        <div class="card-stats-title">Statistik Booking - Bulan ini
+          
+        </div>
+        <div class="card-stats-items">
+          <div class="card-stats-item">
+            <div class="card-stats-item-count @if($booking_list_pending > 0) {{ 'text-info' }} @endif">{{ $booking_list_pending }}</div>
+            <div class="card-stats-item-label">Pending</div>
+          </div>
+          <div class="card-stats-item">
+            <div class="card-stats-item-count">{{ $booking_list_disetujui }}</div>
+            <div class="card-stats-item-label">Disetujui</div>
+          </div>
+          <div class="card-stats-item">
+            <div class="card-stats-item-count">{{ $booking_list_selesai }}</div>
+            <div class="card-stats-item-label">Selesai</div>
+          </div>
+        </div>
+        <div class="card-stats-items">
+          <div class="card-stats-item">
+            <div class="card-stats-item-count">{{ $booking_list_batal }}</div>
+            <div class="card-stats-item-label">Batal</div>
+          </div>
+          <div class="card-stats-item">
+            <div class="card-stats-item-count">{{ $booking_list_ditolak }}</div>
+            <div class="card-stats-item-label">Ditolak</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-icon shadow-primary bg-primary">
+        <i class="fas fa-list"></i>
       </div>
       <div class="card-wrap">
         <div class="card-header">
-          <h4>Total Admin</h4>
+          <h4>Total Permintaan Booking</h4>
         </div>
         <div class="card-body">
-          10
+          {{ $booking_list_all }}
         </div>
       </div>
     </div>
   </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6 col-12">    
+    @component('components.statistic-card')
+      @slot('bg_color', 'bg-primary')
+      @slot('icon', 'fas fa-door-open')
+      @slot('title', 'Total Ruangan')
+      @slot('value', $room)
+    @endcomponent
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    @component('components.statistic-card')
+      @slot('bg_color', 'bg-primary')
+      @slot('icon', 'fas fa-user')
+      @slot('title', 'Total User')
+      @slot('value', $user)
+    @endcomponent
+  </div>
+  
   
 </div>
 @endsection

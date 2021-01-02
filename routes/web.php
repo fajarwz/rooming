@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\BookingListController;
+use App\Http\Controllers\Admin\ChangePassController as AdminChangePassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,12 @@ Route::prefix('admin')
 
         Route::put('/booking-list/{id}/update/{value}', [BookingListController::class, 'update'])
         ->name('booking-list.update');
+
+        Route::get('/change-pass', [AdminChangePassController::class, 'index'])
+        ->name('change-pass.index');
+
+        Route::put('/change-pass/update', [AdminChangePassController::class, 'update'])
+        ->name('change-pass.update');
 
         Route::resources([
             'user'          => UserController::class,

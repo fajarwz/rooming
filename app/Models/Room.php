@@ -36,6 +36,6 @@ class Room extends Model
     }
 
     public function booking_list(){
-        return $this->belongsTo(BookingList::class);
+        return $this->belongsTo(BookingList::class, 'id', 'user_id');
     }
 }

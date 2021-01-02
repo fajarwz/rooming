@@ -1,10 +1,10 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">SEMAK</a>
+      <a href="index.html">ROOMING</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="index.html">SMK</a>
+      <a href="index.html">RM</a>
     </div>
     <ul class="sidebar-menu">
       @if (Auth::user()->role == 'USER')
@@ -20,44 +20,35 @@
         <li><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
         <li class="menu-header">DATA MASTER</li>
-        <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('user.index') }}">
-            <i class="fas fa-user"></i> <span>User</span>
-          </a>
-        </li>
         <li class="{{ request()->is('admin/room*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('room.index') }}">
             <i class="fas fa-door-open"></i> <span>Ruangan</span>
+          </a>
+        </li>
+        <li class="{{ request()->is('admin/user*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('user.index') }}">
+            <i class="fas fa-user"></i> <span>User</span>
           </a>
         </li>
 
         <li class="menu-header">TRANSAKSI</li>
         <li class="{{ request()->is('admin/booking-list*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('booking-list.index') }}">
-            <i class="fas fa-list"></i> <span>Booking List</span>
+            @inject('booking_list', 'App\Models\BookingList')
+            <i class="fas fa-list"></i> <span>{{ $booking_list->where("status", "PENDING")->count() > 0 ? '('.$booking_list->where("status", "PENDING")->count().')' : '' }} Booking List</span>
+          </a>
+        </li>
+
+        <li class="menu-header">SETTING</li>
+        <li class="{{ request()->is('admin/change-pass*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('change-pass.index') }}">
+            <i class="fas fa-key"></i> <span>Ganti Password</span>
           </a>
         </li>
 
       @endif
 
-      {{--<li class="menu-header">JURUSAN</li>
-      <li class="{{ request()->is('admin/major*') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('major.index') }}">
-          <i class="far fa-square"></i> <span>Data Jurusan</span>
-        </a>
-      </li>
-
-      <li class="menu-header">SETTING</li>
-      <li><a class="nav-link" href="#"><i class="far fa-square"></i> <span>Pengumuman</span></a></li>
-      <li class="dropdown {{ request()->is('admin/address/*') ? 'active' : '' }}">
-        <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Alamat</span></a>
-        <ul class="dropdown-menu">
-          <li class="{{ request()->is('admin/address/province*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('province.index') }}">Provinsi</a></li>
-          <li class="{{ request()->is('admin/address/regency*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('regency.index') }}">Kabupaten/Kota</a></li>
-          <li class="{{ request()->is('admin/address/district*') ? 'active' : '' }}"><a class="nav-link" href="{{ route('district.index') }}">Kecamatan</a></li>
-        </ul>
-      </li> --}}
-    </ul>
+      </ul>
 
   </aside>
 </div>

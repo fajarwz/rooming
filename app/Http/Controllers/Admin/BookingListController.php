@@ -13,7 +13,7 @@ class BookingListController extends Controller
 {
     public function json(){
         $data = BookingList::with([
-            'room', 'user'
+            'room_status.room', 'user'
         ]);
 
         return DataTables::of($data)
@@ -35,12 +35,19 @@ class BookingListController extends Controller
     {
         $item = BookingList::findOrFail($id);
 
-        $status = ($value == 1) ? 'DISETUJUI' : 'DITOLAK';
-
-        $data['status'] = $status;
+        if($value == 1) {
+            $data['status'] = 'DISETUJUI';
+        }
+        else if($value == 0) {
+            $data['status'] = 'DITOLAK';
+        }
+        else {
+            session()->flash('alert-failed', 'Perintah tidak dimengerti');
+            return redirect()->route('booking-list.index');
+        }
 
         if($item->update($data)) {
-            session()->flash('alert-success', 'Booking Ruang '.$item->name.' berhasil diupdate');
+            session()->flash('alert-success', 'Booking Ruang '.$item->name.' sekarang '.$data['status']);
         } else {
             session()->flash('alert-failed', 'Booking Ruang '.$item->name.' gagal diupdate');
         }
