@@ -7,16 +7,16 @@
   <title>@yield('title')</title>
 
   @stack('before-style')
-  @include('includes.admin.style')
+  @include('includes.main.style')
   @stack('after-style')
 </head>
 
 <body>
   <div id="app">
     <div class="main-wrapper">
-      @include('includes.admin.sidebar')
+      @include('includes.main.sidebar')
       <div class="main-panel">
-          @include('includes.admin.navbar')
+          @include('includes.main.navbar')
 
           <div class="main-content">
             <section class="section">
@@ -46,14 +46,14 @@
             </section>
           </div>    
 
-          @include('includes.admin.footer')
+          @include('includes.main.footer')
       </div>
     </div>
   </div>
 </body>
 
 @stack('before-script')
-@include('includes.admin.script')
+@include('includes.main.script')
 @stack('after-script')
 
 </html>

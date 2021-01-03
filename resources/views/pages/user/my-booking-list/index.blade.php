@@ -1,32 +1,35 @@
 @extends('layouts.main')
 
-@section('title', 'Booking List - ROOMING')
+@section('title', 'My Booking List - ROOMING')
 
-@section('header-title', 'Booking List')
+@section('header-title', 'My Booking List')
     
 @section('breadcrumbs')
   <div class="breadcrumb-item"><a href="#">Transaksi</a></div>
-  <div class="breadcrumb-item active">Booking List</div>
+  <div class="breadcrumb-item active">My Booking List</div>
 @endsection
 
-@section('section-title', 'Booking List')
+@section('section-title', 'My Booking List')
     
 @section('section-lead')
-  Berikut ini adalah daftar seluruh booking dari setiap user.
+  Berikut ini adalah daftar seluruh booking yang pernah kamu buat.
 @endsection
 
 @section('content')
 
   @component('components.datatables-full-width')
+
+    @slot('add_button')
+      <a href="{{ route('my-booking-list.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Booking</a>
+    @endslot
     
-    @slot('table_id', 'booking-list-table')
+    @slot('table_id', 'my-booking-list-table')
 
     @slot('table_header')
       <tr>
         <th>#</th>
         <th>Foto</th>
         <th>Ruangan</th>
-        <th>User</th>
         <th>Tanggal</th>
         <th>Waktu Mulai</th>
         <th>Waktu Selesai</th>
@@ -46,10 +49,10 @@
   $(document).ready(function() {
     $.fn.dataTable.enum( [ 'PENDING', 'DIBOOKING', 'DITOLAK', 'SELESAI', 'BATAL' ] );
 
-    $('#booking-list-table').DataTable({
+    $('#my-booking-list-table').DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ route('booking-list.json') }}',
+      ajax: '{{ route('my-booking-list.json') }}',
       columns: [
       {
         name: 'DT_RowIndex',
@@ -119,10 +122,6 @@
         }
       },
       {
-        name: 'user.name',
-        data: 'user.name',
-      },
-      {
         name: 'date',
         data: 'date',
       },
@@ -173,7 +172,7 @@
 
       $('.modal-title').html(title);
       $('.modal-body').html(body);
-      $('#confirm-form').attr('action', '/admin/booking-list/'+id+'/update/'+value);
+      $('#confirm-form').attr('action', '/my-booking-list/'+id+'/update/'+value);
       $('#confirm-form').attr('method', 'POST');
       $('#submit-btn').attr('class', submit_btn_class);
       $('#lara-method').attr('value', 'put');

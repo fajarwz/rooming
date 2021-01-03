@@ -28,20 +28,4 @@ class UserEditRequest extends FormRequest
             'description'       => 'nullable|string|max:20',
         ];
     }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'name.required'         => 'Nama tidak boleh kosong',
-            'name.string'           => 'Nama harus berupa string',
-            'name.max'              => 'Nama tidak boleh lebih dari 20 karakter',
-            'description.max'       => 'Deskripsi tidak boleh lebih dari 20 karakter',
-            'description.string'    => 'Deskripsi harus berupa string',
-        ];
-    }
 }

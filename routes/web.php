@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\MyBookingListController;
+
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoomController;
@@ -25,14 +27,31 @@ Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
 Route::prefix('/')
     ->get('/', [UserDashboardController::class, 'index'])
+    /* 
+    |--------------------------------------------------------------------------
+    | Which Home Middleware
+    |--------------------------------------------------------------------------
+    | Which home middleware to support one login page for multiple user
+    | because static var HOME which is the destnation after user login is '/'. 
+    | It is checking user's role, user or admin. if someone login with 
+    | user role then redirect to '/' or user's dashboard and that's it. but if  
+    | the role is admin then first go to '/' which is user's dashboard and then 
+    | redirect to '/admin' or admin's dashboard.
+    */
     ->middleware(['auth', 'which.home'])
     ->name('user.dashboard');
 
 Route::prefix('/')
     ->middleware(['auth', 'is.user'])
     ->group(function(){
-        // Route::get('/', [UserDashboardController::class, 'index'])
-        // ->name('user.dashboard');
+        Route::get('/my-booking-list/json', [MyBookingListController::class, 'json'])
+        ->name('my-booking-list.json');
+        Route::get('/my-booking-list', [MyBookingListController::class, 'index'])
+        ->name('my-booking-list.index');
+        Route::get('/my-booking-list/create', [MyBookingListController::class, 'create'])
+        ->name('my-booking-list.create');
+        Route::put('/my-booking-list/store', [MyBookingListController::class, 'store'])
+        ->name('my-booking-list.store');
     });
 
 Route::prefix('admin')
@@ -68,18 +87,24 @@ Route::prefix('admin')
         ]);
     });
 
-    $users = [
-        '/', 'admin',
-    ];
-    
-    foreach ($users as $user) {
-        Route::prefix($user)
-        ->middleware(['auth'])
-        ->group(function () use ($user) {
-            if($user == '/') $user = 'user';
-            Route::get('/change-pass', [ChangePassController::class, 'index'])
-            ->name($user.'.change-pass.index');
-            Route::put('/change-pass/update', [ChangePassController::class, 'update'])
-            ->name($user.'.change-pass.update');
-        });
-    }
+/* 
+| So basically we have 2 users here, USER and ADMIN. USER prefix is '/'
+| and ADMIN prefix is 'admin'. Here we have change password feature that 
+| can be used by either USER nor ADMIN.
+*/
+
+$users = [
+    '/', 'admin',
+];
+
+foreach ($users as $user) {
+    Route::prefix($user)
+    ->middleware(['auth'])
+    ->group(function () use ($user) {
+        if($user == '/') $user = 'user';
+        Route::get('/change-pass', [ChangePassController::class, 'index'])
+        ->name($user.'.change-pass.index');
+        Route::put('/change-pass/update', [ChangePassController::class, 'update'])
+        ->name($user.'.change-pass.update');
+    });
+}

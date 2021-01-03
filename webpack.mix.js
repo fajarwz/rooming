@@ -12,4 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    // .js('resources/daterangepicker/moment.min.js', 'public/moment')
+    // .js('resources/daterangepicker/daterangepicker.js', 'public/daterangepicker')
+    // .css('resources/daterangepicker/daterangepicker.css', 'public/daterangepicker')
+    .js('resources/bootstrap-timepicker/js/bootstrap-timepicker.js', 'public/bootstrap-timepicker/js')
+    .postCss('resources/bootstrap-timepicker/css/bootstrap-timepicker.css', 'public/bootstrap-timepicker/css')
     .sass('resources/sass/app.scss', 'public/css');

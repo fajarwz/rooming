@@ -30,25 +30,4 @@ class RoomRequest extends FormRequest
             'photo'             => 'nullable|image|max:2048',
         ];
     }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'name.required'         => 'Nama tidak boleh kosong',
-            'name.string'           => 'Nama harus berupa string',
-            'name.max'              => 'Nama tidak boleh lebih dari 100 karakter',
-            'name.unique'           => 'Nama tidak tersedia',
-            'description.string'    => 'Deskripsi harus berupa string',
-            'description.max'       => 'Deskripsi tidak boleh lebih dari 255 karakter',
-            'capacity.numeric'      => 'Kapasitas harus numerik',
-            'capacity.lt'           => 'Kapasitas tidak boleh lebih dari 100000',
-            'photo.image'           => 'Foto harus berupa gambar',
-            'photo.max'             => 'Ukuran Foto tidak boleh lebih dari 2048MB',
-        ];
-    }
 }

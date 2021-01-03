@@ -1,4 +1,6 @@
 {
+    "/bootstrap-timepicker/js/bootstrap-timepicker.js": "/bootstrap-timepicker/js/bootstrap-timepicker.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/bootstrap-timepicker/css/bootstrap-timepicker.css": "/bootstrap-timepicker/css/bootstrap-timepicker.css"
 }

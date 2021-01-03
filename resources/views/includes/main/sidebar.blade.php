@@ -12,8 +12,15 @@
         <li class="menu-header">Dashboard</li>
         <li><a class="nav-link" href="{{ route('user.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
+        <li class="menu-header">TRANSAKSI</li>
+        <li class="{{ request()->is('my-booking-list*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('my-booking-list.index') }}">
+            <i class="fas fa-list"></i> <span>My Booking</span>
+          </a>
+        </li>
+
         <li class="menu-header">SETTING</li>
-        <li class="{{ request()->is('user/change-pass*') ? 'active' : '' }}">
+        <li class="{{ request()->is('change-pass*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('user.change-pass.index') }}">
             <i class="fas fa-key"></i> <span>Ganti Password</span>
           </a>

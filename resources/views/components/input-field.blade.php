@@ -12,8 +12,12 @@
 
   @if ($input_type == 'text' || $input_type == 'number' || $input_type == 'password' || $input_type == 'hidden')
 
-      <input type="{{ $input_type }}" name="{{ $input_name }}" 
-      class="form-control @isset($is_datepicker) {{ $is_datepicker }} @endisset 
+      <input type="{{ $input_type }}" 
+      @isset($input_id) {{ 'id='.$input_id }} @endisset
+      @isset($input_name) {{ 'name='.$input_name }} @endisset
+      class="form-control 
+      @isset($is_datepicker) {{ $is_datepicker }} @endisset 
+      @isset($is_timepicker) {{ $is_timepicker }} @endisset 
       @error($input_name) is-invalid @enderror" 
       value="@isset($input_value){{ $input_value }}@else{{ ($input_type == 'password') ? '' : old($input_name) }}@endisset"
       @isset($is_disabled) {{ $is_disabled }} @endisset
@@ -30,7 +34,9 @@
 
     @elseif ($input_type == 'select')
 
-      <select name="{{ $input_name }}" id="{{ $input_name }}"
+      <select 
+        id="@isset($input_id) {{ $input_id }} @endisset"
+        name="@isset($input_name) {{ $input_name }} @endisset"
         class="form-control @error($input_name) is-invalid @enderror" 
         @isset($is_required) {{ $is_required }} @endisset
         @isset($is_autofocus) {{ $is_autofocus }} @endisset>
@@ -43,7 +49,8 @@
     @elseif ($input_type == 'textarea')
 
       <textarea class="form-control @error($input_name) is-invalid @enderror" 
-        name="{{ $input_name }}"
+        id="@isset($input_id) {{ $input_id }} @endisset"
+        name="@isset($input_name) {{ $input_name }} @endisset"
         @isset($is_required) {{ $is_required }} @endisset 
         @isset($is_autofocus) {{ $is_autofocus }} @endisset
         >@isset($input_value){{ $input_value }}@else{{ old($input_name) }}@endisset</textarea>
