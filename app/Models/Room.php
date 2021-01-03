@@ -32,10 +32,10 @@ class Room extends Model
     ];
 
     public function room_status(){
-        return $this->hasOne(RoomStatus::class);
+        return $this->belongsTo(RoomStatus::class, 'id', 'room_id');
     }
 
-    public function booking_list(){
-        return $this->belongsTo(BookingList::class, 'id', 'user_id');
-    }
+    // public function booking_list(){
+    //     return $this->belongsTo(BookingList::class, 'id', 'user_id');
+    // }
 }

@@ -15,13 +15,13 @@ class CreateBookingListsTable extends Migration
     {
         Schema::create('booking_lists', function (Blueprint $table) {
             $table->id();
-            $table->integer('room_id');
+            $table->integer('room_status_id');
             $table->integer('user_id');
             $table->date('date'); 
             $table->time('start_time');
             $table->time('end_time');
             $table->string('purpose', 100);
-            $table->enum('status', ['PENDING', 'DISETUJUI', 'DITOLAK', 'BATAL', 'SELESAI']);
+            $table->enum('status', ['PENDING', 'DISETUJUI', 'DIBOOKING', 'DITOLAK', 'BATAL', 'SELESAI']);
             $table->softDeletes();
             $table->timestamps();
         });

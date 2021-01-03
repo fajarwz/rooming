@@ -29,6 +29,10 @@ class RoomStatus extends Model
 
     ];
 
+    public function booking_list(){
+        return $this->belongsTo(BookingList::class, 'id', 'room_id');
+    }
+
     public function room(){
         return $this->hasOne(Room::class, 'id', 'room_id');
     }

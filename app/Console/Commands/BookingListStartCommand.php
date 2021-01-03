@@ -4,6 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use App\Models\BookingList;
+
+use Carbon\Carbon;
+
 class BookingListStartCommand extends Command
 {
     /**
@@ -37,16 +41,24 @@ class BookingListStartCommand extends Command
      */
     public function handle()
     {
-        $data = BookingList::where([
+        $data_booking_list = BookingList::where([
             ['status', '=', 'DISETUJUI'],
             ['date', '=', Carbon::today()->toDateString()],
-            ['start_time', '=', Carbon::now()->toTimeString()],
-        ]);
+            ['start_time', '<', Carbon::now()->toTimeString()],
+            ['end_time', '>', Carbon::now()->toTimeString()],
+        ])->with(['room_status.room']);
 
-        if($data->room_status()->update($data['status'] = 'DIBOOKING')) {
-            $this->info('Booking-an '.$data->room_status()->room()->name.' dimulai');
-        } else {
-            $this->info('Terjadi kesalahan dalam memulai booking '.$data->room_status()->room()->name);
+        $room_status['status'] = 'DIBOOKING';
+        $booking_list_status['status'] = 'DIBOOKING';
+
+        foreach ($data_booking_list->get() as $item) {
+            if($item->room_status->update($room_status))
+                $this->info('set ruangan jadi DIBOOKING');
+            else 
+                $this->info('Terjadi kesalahan dalam setting ruangan');
         }
+
+        if($data_booking_list->update($booking_list_status))
+            $this->info('Start booking-an selesai');
     }
 }

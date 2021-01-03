@@ -4,6 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use App\Models\BookingList;
+
+use Carbon\Carbon;
+
 class BookingListFinishCommand extends Command
 {
     /**
@@ -37,20 +41,24 @@ class BookingListFinishCommand extends Command
      */
     public function handle()
     {
-        $data = BookingList::where([
-            ['status', '=', 'DISETUJUI'],
+        $data_booking_list = BookingList::where([
+            ['status', '=', 'DIBOOKING'],
             ['date', '=', Carbon::today()->toDateString()],
-            ['end_time', '=', Carbon::now()->toTimeString()],
-        ]);
+            ['end_time', '<', Carbon::now()->toTimeString()],
+        ])->with(['room_status.room']);
 
-        if($data->update($data['status'] = 'SELESAI')){
-            if($data->room_status()->update($data['status'] = 'ADA')){
-                $this->info('Booking-an '.$data->room_status()->room()->name.' selesai');
-            } else {
-                $this->info('Terjadi kesalahan dalam mengubah status ruangan booking-an '.$data->room_status()->room()->name);
-            }
-        } else {
-            $this->info('Terjadi kesalahan dalam menyelesaikan booking-an '.$data->room_status()->room()->name);
+        $booking_list_status['status'] = 'SELESAI';
+        $room_status['status'] = 'ADA';
+
+        foreach ($data_booking_list->get() as $item) {
+            if($item->room_status->update($room_status))
+                $this->info('set ruangan jadi ADA');
+            else 
+                $this->info('Terjadi kesalahan setting ruangan');
         }
+
+        if($data_booking_list->update($booking_list_status))
+            $this->info('Finish booking-an selesai');
+
     }
 }

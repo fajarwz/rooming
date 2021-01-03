@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\BookingListStartCommand',
         'App\Console\Commands\BookingListFinishCommand',
+        'App\Console\Commands\BookingListStartCommand',
     ];
 
     /**
