@@ -140,18 +140,15 @@ class UserController extends Controller
 
     public function update_pass(UserChangePassRequest $request, $id)
     {
-        $data['password'] = $request->input('password');
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = bcrypt($request->input('password'));
 
-        $item = User::select('name')->where('id', $id)->first();
+        $item = User::findOrFail($id);
 
-        // if (Hash::check($data['current_password'], $item->password)) {
-            if($item->update(['password'=> $data['password']])) {
-                session()->flash('alert-success', 'Password User '.$item->name.' berhasil diupdate');
-            } else {
-                session()->flash('alert-failed', 'Password User '.$item->name.' gagal diupdate');
-            }   
-        // } 
+        if($item->update(['password'=> $data['password']])) {
+            session()->flash('alert-success', 'Password User '.$item->name.' berhasil diupdate');
+        } else {
+            session()->flash('alert-failed', 'Password User '.$item->name.' gagal diupdate');
+        }
         
         return redirect()->route('user.index');
     }

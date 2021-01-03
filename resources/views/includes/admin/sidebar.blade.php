@@ -12,6 +12,13 @@
         <li class="menu-header">Dashboard</li>
         <li><a class="nav-link" href="{{ route('user.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
+        <li class="menu-header">SETTING</li>
+        <li class="{{ request()->is('user/change-pass*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('user.change-pass.index') }}">
+            <i class="fas fa-key"></i> <span>Ganti Password</span>
+          </a>
+        </li>
+
       @endif
 
       @if (Auth::user()->role == 'ADMIN')
@@ -41,7 +48,7 @@
 
         <li class="menu-header">SETTING</li>
         <li class="{{ request()->is('admin/change-pass*') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('change-pass.index') }}">
+          <a class="nav-link" href="{{ route('admin.change-pass.index') }}">
             <i class="fas fa-key"></i> <span>Ganti Password</span>
           </a>
         </li>

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\ChangePassRequest;
+use App\Http\Requests\ChangePassRequest;
 use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class ChangePassController extends Controller
 {
     public function index() {
-        return view('pages.admin.change-pass.index');
+        return view('pages.change-pass.index');
     }
 
     public function update(ChangePassRequest $request) {
@@ -25,6 +25,9 @@ class ChangePassController extends Controller
             $request->session()->flash('alert-failed', 'Password gagal diganti!');
         }
 
-        return redirect()->route('change-pass.index');
+        if(Auth::user()->role == 'USER')
+            return redirect()->route('user.change-pass.index');
+        elseif(Auth::user()->role == 'ADMIN')
+            return redirect()->route('admin.change-pass.index');
     }
 }

@@ -20,7 +20,11 @@
   @component('components.data-entry-form')
       @slot('form_method', 'POST')
       @slot('method_put', 'PUT')
-      @slot('form_action', 'change-pass.update')
+      @if (Auth::user()->role == 'USER')
+        @slot('form_action', 'user.change-pass.update')
+      @elseif(Auth::user()->role == 'ADMIN')
+        @slot('form_action', 'admin.change-pass.update')
+      @endif
 
     @slot('input_form')
 

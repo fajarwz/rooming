@@ -28,11 +28,15 @@
             <div class="card-stats-item-label">Disetujui</div>
           </div>
           <div class="card-stats-item">
-            <div class="card-stats-item-count">{{ $booking_list_selesai }}</div>
-            <div class="card-stats-item-label">Selesai</div>
+            <div class="card-stats-item-count">{{ $booking_list_dibooking }}</div>
+            <div class="card-stats-item-label">(Proses) Dibooking</div>
           </div>
         </div>
         <div class="card-stats-items">
+          <div class="card-stats-item">
+            <div class="card-stats-item-count">{{ $booking_list_selesai }}</div>
+            <div class="card-stats-item-label">Selesai</div>
+          </div>
           <div class="card-stats-item">
             <div class="card-stats-item-count">{{ $booking_list_batal }}</div>
             <div class="card-stats-item-label">Batal</div>

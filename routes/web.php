@@ -7,7 +7,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\BookingListController;
-use App\Http\Controllers\Admin\ChangePassController as AdminChangePassController;
+
+use App\Http\Controllers\ChangePassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,14 +62,24 @@ Route::prefix('admin')
         Route::put('/booking-list/{id}/update/{value}', [BookingListController::class, 'update'])
         ->name('booking-list.update');
 
-        Route::get('/change-pass', [AdminChangePassController::class, 'index'])
-        ->name('change-pass.index');
-
-        Route::put('/change-pass/update', [AdminChangePassController::class, 'update'])
-        ->name('change-pass.update');
-
         Route::resources([
             'user'          => UserController::class,
             'room'          => RoomController::class,
         ]);
     });
+
+    $users = [
+        '/', 'admin',
+    ];
+    
+    foreach ($users as $user) {
+        Route::prefix($user)
+        ->middleware(['auth'])
+        ->group(function () use ($user) {
+            if($user == '/') $user = 'user';
+            Route::get('/change-pass', [ChangePassController::class, 'index'])
+            ->name($user.'.change-pass.index');
+            Route::put('/change-pass/update', [ChangePassController::class, 'update'])
+            ->name($user.'.change-pass.update');
+        });
+    }

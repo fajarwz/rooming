@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard User - SEMAK')
+@section('title', 'Dashboard User - ROOMING')
 
 @section('header-title', 'Dashboard')
 
@@ -11,7 +11,6 @@
     
 @section('content')
 <div class="row">
-  Dashboard User
   <div class="col-lg-3 col-md-6 col-sm-6 col-12">
     <div class="card card-statistic-1">
       <div class="card-icon bg-primary">
