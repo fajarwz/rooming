@@ -61,10 +61,11 @@ class MyBookingListController extends Controller
      */
     public function store(MyBookingListRequest $request)
     {
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
+        $data               = $request->all();
+        $data['user_id']    = Auth::user()->id;
+        $data['status']     = 'PENDING';
 
-        $room_name = Room::select('name')->where('id', $data['room_id'])->get();
+        $room_name          = Room::select('name')->where('id', $data['room_id'])->get();
 
         if(
             BookingList::where([
@@ -87,88 +88,36 @@ class MyBookingListController extends Controller
             ])->count() <= 0
         ) {
             if(BookingList::create($data)) {
-                $request->session()->flash('alert-success', 'Booking ruang '.$room_name.' berhasil ditambahkan');
+                $request->session()->flash('alert-success', 'Booking ruang '.$room_name['name'].' berhasil ditambahkan');
             } else {
-                $request->session()->flash('alert-failed', 'Booking ruang '.$room_name.' gagal ditambahkan');
+                $request->session()->flash('alert-failed', 'Booking ruang '.$room_name['name'].' gagal ditambahkan');
             }
         } else {
-            $request->session()->flash('alert-success', 'Ruangan '.$room_name.' sudah dibooking');
-            return redirect()->route('room.create');
+            $request->session()->flash('alert-success', 'Ruangan '.$room_name['name'].' sudah dibooking');
+            return redirect()->route('my-booking-list.create');
         }
 
-        return redirect()->route('room.index');
+        return redirect()->route('my-booking-list.index');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $item = Room::findOrFail($id);
-
-        return view('pages.admin.room.edit_or_create', [
-            'item'  => $item 
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Cancel the specified data.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RoomRequest $request, $id)
+    public function cancel($id)
     {
-        $data = $request->all();
-
-        if(isset($data['photo'])){
-            $data['photo']          = $request->file('photo')->store(
-                'assets/image/room', 'public'
-            );
-        }
-
-        $item = Room::findOrFail($id);
+        $item           = BookingList::findOrFail($id);
+        $data['status'] = 'BATAL';
 
         if($item->update($data)) {
-            $request->session()->flash('alert-success', 'Ruang '.$item->name.' berhasil diupdate');
+            session()->flash('alert-success', 'Booking Ruang '.$item->name.' berhasil dibatalkan');
         } else {
-            $request->session()->flash('alert-failed', 'Ruang '.$item->name.' gagal diupdate');
+            session()->flash('alert-failed', 'Booking Ruang '.$item->name.' gagal dibatalkan');
         }
         
-        return redirect()->route('room.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $item = Room::findOrFail($id);
-        
-        if($item->delete()) {
-            session()->flash('alert-success', 'Ruang '.$item->name.' berhasil dihapus!');
-        } else {
-            session()->flash('alert-failed', 'Ruang '.$item->name.' gagal dihapus');
-        }
-
-        return redirect()->route('room.index');
+        return redirect()->route('my-booking-list.index');
     }
 }

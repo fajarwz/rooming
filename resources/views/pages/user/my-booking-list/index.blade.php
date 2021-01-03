@@ -89,29 +89,13 @@
             result += '<div class="table-links">';
           }
 
-          if(row.status === 'PENDING' || row.status === 'DITOLAK') {
-            result += ' <a href="javascript:;" data-id="'+row.id+'" '
-            + ' data-title="Setujui"'
-            + ' data-body="Yakin setujui booking ini?"'
-            + ' data-value="1"'
-            + ' class="text-primary"'
-            + ' id="acc-btn"'
-            + ' name="acc-btn">Setujui'
-            + ' </a>';
-          }
-
-          if(row.status === 'PENDING'){
-            result += ' <div class="bullet"></div>';
-          }
-
           if(row.status === 'PENDING' || row.status === 'DISETUJUI') {
             result += ' <a href="javascript:;" data-id="'+row.id+'" '
-            + ' data-title="Tolak"'
-            + ' data-body="Yakin tolak booking ini?"'
-            + ' data-value="0"'
+            + ' data-title="Batalkan"'
+            + ' data-body="Yakin batalkan booking ini?"'
             + ' class="text-danger"'
-            + ' id="deny-btn"'
-            + ' name="deny-btn">Tolak'
+            + ' id="cancel-btn"'
+            + ' name="cancel-btn">Batalkan'
             + ' </a>';
           }
 
@@ -162,17 +146,16 @@
     ],
     });
 
-    $(document).on('click', '#acc-btn, #deny-btn', function() {
+    $(document).on('click', '#cancel-btn', function() {
       var id    = $(this).data('id'); 
       var title = $(this).data('title');
       var body  = $(this).data('body');
-      var value = $(this).data('value');
 
-      var submit_btn_class = (value === 1) ? 'btn btn-primary' : 'btn btn-danger';
+      var submit_btn_class = 'btn btn-danger';
 
       $('.modal-title').html(title);
       $('.modal-body').html(body);
-      $('#confirm-form').attr('action', '/my-booking-list/'+id+'/update/'+value);
+      $('#confirm-form').attr('action', '/my-booking-list/'+id+'/cancel');
       $('#confirm-form').attr('method', 'POST');
       $('#submit-btn').attr('class', submit_btn_class);
       $('#lara-method').attr('value', 'put');

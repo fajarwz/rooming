@@ -50,8 +50,10 @@ Route::prefix('/')
         ->name('my-booking-list.index');
         Route::get('/my-booking-list/create', [MyBookingListController::class, 'create'])
         ->name('my-booking-list.create');
-        Route::put('/my-booking-list/store', [MyBookingListController::class, 'store'])
+        Route::post('/my-booking-list/store', [MyBookingListController::class, 'store'])
         ->name('my-booking-list.store');
+        Route::put('/my-booking-list/{id}/cancel', [MyBookingListController::class, 'cancel'])
+        ->name('my-booking-list.cancel');
     });
 
 Route::prefix('admin')

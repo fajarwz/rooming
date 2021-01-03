@@ -35,8 +35,8 @@
     @elseif ($input_type == 'select')
 
       <select 
-        id="@isset($input_id) {{ $input_id }} @endisset"
-        name="@isset($input_name) {{ $input_name }} @endisset"
+        @isset($input_id) {{ 'id='.$input_id }} @endisset
+        @isset($input_name) {{ 'name='.$input_name }} @endisset
         class="form-control @error($input_name) is-invalid @enderror" 
         @isset($is_required) {{ $is_required }} @endisset
         @isset($is_autofocus) {{ $is_autofocus }} @endisset>
@@ -49,8 +49,8 @@
     @elseif ($input_type == 'textarea')
 
       <textarea class="form-control @error($input_name) is-invalid @enderror" 
-        id="@isset($input_id) {{ $input_id }} @endisset"
-        name="@isset($input_name) {{ $input_name }} @endisset"
+        @isset($input_id) {{ 'id='.$input_id }} @endisset
+        @isset($input_name) {{ 'name='.$input_name }} @endisset
         @isset($is_required) {{ $is_required }} @endisset 
         @isset($is_autofocus) {{ $is_autofocus }} @endisset
         >@isset($input_value){{ $input_value }}@else{{ old($input_name) }}@endisset</textarea>
@@ -66,7 +66,8 @@
         </div> --}}
         <input type="{{ $input_type }}" class="form-control mb-2 
           @error($input_name) is-invalid @enderror" 
-          name="{{ $input_name }}" id="image-need-preview" 
+          @isset($input_id) {{ 'id='.$input_id }} @endisset
+          @isset($input_name) {{ 'name='.$input_name }} @endisset
           @isset($is_required) {{ $is_required }} @endisset 
           @isset($is_autofocus) {{ $is_autofocus }} @endisset>
         @error($input_name)

@@ -24,7 +24,7 @@ class MyBookingListRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_id'           => 'required|integer|exists:rooms,room_id',
+            'room_id'           => 'required|integer|exists:rooms,id',
             'date'              => 'required|date_format:Y-m-d|before_or_equal:today',
             'start_time'        => 'required|date_format:H:i:s|before:end_time',
             'end_time'          => 'required|date_format:H:i:s|after:start_time',
