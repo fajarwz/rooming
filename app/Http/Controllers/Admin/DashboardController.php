@@ -16,7 +16,7 @@ class DashboardController extends Controller
         $booking_list_all       = BookingList::all()->count();
         $booking_list_pending   = BookingList::where('status', 'PENDING')->count();
         $booking_list_disetujui = BookingList::where('status', 'DISETUJUI')->count();
-        $booking_list_dibooking = BookingList::where('status', 'DIBOOKING')->count();
+        $booking_list_digunakan = BookingList::where('status', 'DIGUNAKAN')->count();
         $booking_list_selesai   = BookingList::where('status', 'SELESAI')->count();
         $booking_list_ditolak   = BookingList::where('status', 'DITOLAK')->count();
         $booking_list_batal     = BookingList::where('status', 'BATAL')->count();
@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'booking_list_all'          => $booking_list_all,
             'booking_list_pending'      => $booking_list_pending,
             'booking_list_disetujui'    => $booking_list_disetujui,
-            'booking_list_dibooking'    => $booking_list_dibooking,
+            'booking_list_digunakan'    => $booking_list_digunakan,
             'booking_list_selesai'      => $booking_list_selesai,
             'booking_list_ditolak'      => $booking_list_ditolak,
             'booking_list_batal'        => $booking_list_batal,

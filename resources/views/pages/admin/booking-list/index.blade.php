@@ -46,12 +46,12 @@
 
   <script>
   $(document).ready(function() {
-    $.fn.dataTable.enum( [ 'PENDING', 'DISETUJUI', 'DIBOOKING', 'SELESAI', 'DITOLAK', 'BATAL' ] );
+    $.fn.dataTable.enum( [ 'PENDING', 'DISETUJUI', 'DIGUNAKAN', 'SELESAI', 'DITOLAK', 'BATAL' ] );
     // $.fn.dataTable.ext.type.order['status_order-pre'] = function ( s ) {
     //   switch ( s ) {
     //       case 'PENDING'    :return 1;
     //       case 'DISETUJUI'  :return 2;
-    //       case 'DIBOOKING'  :return 3;
+    //       case 'DIGUNAKAN'  :return 3;
     //       case 'SELESAI'    :return 4;
     //       case 'BATAL'      :return 5;
     //       case 'DITOLAK'    :return 6;
@@ -179,7 +179,7 @@
             result += `info`;
           else if(data === 'DISETUJUI')
             result += `primary`;
-          else if(data === 'DIBOOKING')
+          else if(data === 'DIGUNAKAN')
             result += `primary`;
           else if(data === 'DITOLAK')
             result += `danger`;

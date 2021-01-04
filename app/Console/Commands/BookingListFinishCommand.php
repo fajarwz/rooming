@@ -42,7 +42,7 @@ class BookingListFinishCommand extends Command
     public function handle()
     {
         $data_booking_list = BookingList::where([
-            ['status', '=', 'DIBOOKING'],
+            ['status', '=', 'DIGUNAKAN'],
             ['date', '=', Carbon::today()->toDateString()],
             ['end_time', '<', Carbon::now()->toTimeString()],
         ])->with(['room_status.room']);

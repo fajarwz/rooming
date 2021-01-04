@@ -28,8 +28,8 @@
             <div class="card-stats-item-label">Disetujui</div>
           </div>
           <div class="card-stats-item">
-            <div class="card-stats-item-count">{{ $booking_list_dibooking }}</div>
-            <div class="card-stats-item-label">(Proses) Dibooking</div>
+            <div class="card-stats-item-count">{{ $booking_list_digunakan }}</div>
+            <div class="card-stats-item-label">Sedang Digunakan</div>
           </div>
         </div>
         <div class="card-stats-items">
