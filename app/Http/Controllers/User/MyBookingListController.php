@@ -19,7 +19,7 @@ class MyBookingListController extends Controller
 {
     public function json(){
         $data = BookingList::where('user_id', Auth::user()->id)->with([
-            'room_status.room'
+            'room'
         ]);
 
         return DataTables::of($data)
@@ -44,9 +44,7 @@ class MyBookingListController extends Controller
      */
     public function create()
     {
-        $rooms = RoomStatus::where('status', 'ADA')->with([
-            'room'
-        ])->get();
+        $rooms = Room::all();
 
         return view('pages.user.my-booking-list.create', [
             'rooms' => $rooms,

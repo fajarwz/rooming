@@ -13,7 +13,7 @@ class BookingListController extends Controller
 {
     public function json(){
         $data = BookingList::with([
-            'room_status.room', 'user'
+            'room', 'user'
         ]);
 
         return DataTables::of($data)

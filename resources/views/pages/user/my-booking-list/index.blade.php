@@ -43,16 +43,22 @@
 @endsection
 
 @push('after-script')
-  <script src="{{ asset('theme/datatables/sorting/enum.js') }}"></script>
 
   <script>
   $(document).ready(function() {
-    $.fn.dataTable.enum( [ 'PENDING', 'DIBOOKING', 'DITOLAK', 'SELESAI', 'BATAL' ] );
 
     $('#my-booking-list-table').DataTable({
       processing: true,
       serverSide: true,
       ajax: '{{ route('my-booking-list.json') }}',
+      columnDefs: [ {
+            targets: [ 3 ],
+            orderData: [ 3, 4 ]
+        }, {
+            targets: [ 4 ],
+            orderData: [ 4, 3 ]
+        }, ],
+      order: [[3, 'desc'], [4, 'desc']],
       columns: [
       {
         name: 'DT_RowIndex',
@@ -61,8 +67,8 @@
         searchable: false,
       },
       {
-        name: 'room_status.room.photo',
-        data: 'room_status.room.photo',
+        name: 'room.photo',
+        data: 'room.photo',
         orderable: false, 
         searchable: false,
         render: function ( data, type, row ) {
@@ -78,8 +84,8 @@
         }
       },
       {
-        name: 'room_status.room.name',
-        data: 'room_status.room.name',
+        name: 'room.name',
+        data: 'room.name',
         orderable: false,
         render: function ( data, type, row ) {
           var result = data;

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Room;
-use App\Models\RoomStatus;
 
 use App\Http\Requests\Admin\RoomRequest;
 
@@ -15,9 +14,7 @@ use DataTables;
 class RoomController extends Controller
 {
     public function json(){
-        $data = Room::with([
-            'room_status'
-        ]);
+        $data = Room::all();
 
         return DataTables::of($data)
         ->addIndexColumn()
@@ -61,18 +58,9 @@ class RoomController extends Controller
         }
 
         $create_room = Room::create($data);
-        $room_id = $create_room->id;
         
         if($create_room) {
-            $create_room_status = RoomStatus::create([
-                'room_id'   => $room_id,
-                'status'    => 'FREE',
-            ]);
-            if($create_room_status) {
-                $request->session()->flash('alert-success', 'Ruang '.$data['name'].' berhasil ditambahkan');
-            } else {
-                $request->session()->flash('alert-failed', 'Ada masalah dalam penetapan status ruangan.');
-            }
+            $request->session()->flash('alert-success', 'Ruang '.$data['name'].' berhasil ditambahkan');
         } else {
             $request->session()->flash('alert-failed', 'Ruang '.$data['name'].' gagal ditambahkan');
         }

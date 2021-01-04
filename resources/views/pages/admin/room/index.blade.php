@@ -32,7 +32,6 @@
         <th>Nama</th>
         <th>Deskripsi</th>
         <th>Kapasitas</th>
-        <th>Status</th>
       </tr>
     @endslot
       
@@ -48,6 +47,7 @@
       processing: true,
       serverSide: true,
       ajax: '{{ route('room.json') }}',
+      order: [2, 'asc'],
       columns: [
       {
         name: 'DT_RowIndex',
@@ -58,6 +58,8 @@
       {
         name: 'photo',
         data: 'photo',
+        orderable: false, 
+        searchable: false,
         render: function ( data, type, row ) {
           if(data != null) {
             return `<div class="gallery gallery-fw">`
@@ -110,20 +112,7 @@
         name: 'capacity',
         data: 'capacity',
       },
-      {
-        name: 'status',
-        data: 'room_status.status',
-        render: function ( data, type, row ) {
-          if(data === 'ADA') 
-            return `<span class="badge badge-success">${data}</span>`;
-          else if(data === 'DIBOOKING')
-            return `<span class="badge badge-primary">${data}</span>`;
-          else 
-            return `<span class="badge badge-danger">${data}</span>`;
-        } 
-      },
     ],
-      order: [2, 'asc'],
     });
   
 

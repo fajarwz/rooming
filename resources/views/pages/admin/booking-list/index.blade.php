@@ -65,10 +65,18 @@
       ajax: '{{ route('booking-list.json') }}',
       // columnDefs: [{ 'targets': 4, type: 'date-euro' }],
       // columnDefs: [{ targets: -1, type: 'status_order' }],
-      aoColumnDefs: [{ 
-        sType: "numeric", 
-        aTargets: [ 8 ],
-      }],
+      // aoColumnDefs: [{ 
+      //   sType: "numeric", 
+      //   aTargets: [ 8 ],
+      // }],
+      columnDefs: [ {
+            targets: [ 4 ],
+            orderData: [ 4, 5 ]
+        }, {
+            targets: [ 5 ],
+            orderData: [ 5, 4 ]
+        }, ],
+      order: [[4, 'desc'], [5, 'desc']],
       columns: [
       {
         name: 'DT_RowIndex',
@@ -77,8 +85,8 @@
         searchable: false,
       },
       {
-        name: 'room_status.room.photo',
-        data: 'room_status.room.photo',
+        name: 'room.photo',
+        data: 'room.photo',
         orderable: false, 
         searchable: false,
         render: function ( data, type, row ) {
@@ -94,8 +102,8 @@
         }
       },
       {
-        name: 'room_status.room.name',
-        data: 'room_status.room.name',
+        name: 'room.name',
+        data: 'room.name',
         orderable: false, 
         render: function ( data, type, row ) {
           var result = data;
@@ -148,22 +156,18 @@
       {
         name: 'date',
         data: 'date',
-        orderable: false, 
       },
       {
         name: 'start_time',
         data: 'start_time',
-        orderable: false, 
       },
       {
         name: 'end_time',
-        data: 'end_time',
-        orderable: false, 
+        data: 'end_time', 
       },
       {
         name: 'purpose',
         data: 'purpose',
-        orderable: false, 
       },
       {
         name: 'status',

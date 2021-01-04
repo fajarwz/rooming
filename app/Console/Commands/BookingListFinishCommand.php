@@ -48,14 +48,6 @@ class BookingListFinishCommand extends Command
         ])->with(['room_status.room']);
 
         $booking_list_status['status'] = 'SELESAI';
-        $room_status['status'] = 'ADA';
-
-        foreach ($data_booking_list->get() as $item) {
-            if($item->room_status->update($room_status))
-                $this->info('set ruangan jadi ADA');
-            else 
-                $this->info('Terjadi kesalahan setting ruangan');
-        }
 
         if($data_booking_list->update($booking_list_status))
             $this->info('Finish booking-an selesai');
