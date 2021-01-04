@@ -9,8 +9,6 @@ use App\Models\BookingList;
 use App\Models\Room;
 use App\Models\User;
 
-use Carbon\Carbon;
-
 class DashboardController extends Controller
 {
     public function index()
@@ -18,7 +16,7 @@ class DashboardController extends Controller
         $booking_list_all       = BookingList::all()->count();
         $booking_list_pending   = BookingList::where('status', 'PENDING')->count();
         $booking_list_disetujui = BookingList::where('status', 'DISETUJUI')->count();
-        $booking_list_dibooking   = BookingList::where('status', 'DIBOOKING')->count();
+        $booking_list_dibooking = BookingList::where('status', 'DIBOOKING')->count();
         $booking_list_selesai   = BookingList::where('status', 'SELESAI')->count();
         $booking_list_ditolak   = BookingList::where('status', 'DITOLAK')->count();
         $booking_list_batal     = BookingList::where('status', 'BATAL')->count();

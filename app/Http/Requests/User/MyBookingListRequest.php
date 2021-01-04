@@ -4,6 +4,8 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Carbon\Carbon;
+
 class MyBookingListRequest extends FormRequest
 {
     /**
@@ -23,11 +25,12 @@ class MyBookingListRequest extends FormRequest
      */
     public function rules()
     {
+        $now = Carbon::now()->format('H:i');
         return [
             'room_id'           => 'required|integer|exists:rooms,id',
-            'date'              => 'required|date_format:Y-m-d|before_or_equal:today',
-            'start_time'        => 'required|date_format:H:i:s|before:end_time',
-            'end_time'          => 'required|date_format:H:i:s|after:start_time',
+            'date'              => 'required|date_format:Y-m-d|after_or_equal:today',
+            'start_time'        => 'required|date_format:H:i|after:'.$now.'|before:end_time',
+            'end_time'          => 'required|date_format:H:i|after:start_time',
             'purpose'           => 'required|string|max:100',
         ];
     }

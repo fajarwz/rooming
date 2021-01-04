@@ -58,11 +58,13 @@
         name: 'DT_RowIndex',
         data: 'DT_RowIndex',
         orderable: false, 
-        searchable: false
+        searchable: false,
       },
       {
-        name: 'room.photo',
+        name: 'room_status.room.photo',
         data: 'room_status.room.photo',
+        orderable: false, 
+        searchable: false,
         render: function ( data, type, row ) {
           if(data != null) {
             return `<div class="gallery gallery-fw">`
@@ -76,8 +78,9 @@
         }
       },
       {
-        name: 'room.name',
+        name: 'room_status.room.name',
         data: 'room_status.room.name',
+        orderable: false,
         render: function ( data, type, row ) {
           var result = data;
 

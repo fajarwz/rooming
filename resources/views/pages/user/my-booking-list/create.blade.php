@@ -63,6 +63,7 @@
           @slot('input_type', 'text')
           @slot('input_id', 'start_time')
           @slot('input_name', 'start_time')
+          @slot('placeholder', 'HH:mm')
           @slot('is_timepicker', 'timepicker')
           @slot('is_required', 'required')
       @endcomponent
@@ -74,6 +75,7 @@
           @slot('input_type', 'text')
           @slot('input_id', 'end_time')
           @slot('input_name', 'end_time')
+          @slot('placeholder', 'HH:mm')
           @slot('is_timepicker', 'timepicker')
           @slot('is_required', 'required')
       @endcomponent
@@ -96,9 +98,9 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   {{-- datepicker  --}}
 
-  {{-- bootstrap-timepicker  --}}
-  <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-timepicker/css/bootstrap-timepicker.css') }}" />
-  {{-- bootstrap-timepicker  --}}
+  {{-- bootstrap-datetimepicker  --}}
+  {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/> --}}
+  {{-- bootstrap-datetimepicker  --}}
   
 @endpush
 
@@ -108,15 +110,14 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   {{-- datepicker  --}}
 
-  {{-- bootstrap-timepicker  --}}
-  <script type="text/javascript" src="{{ asset('bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
-  <script>
-    $('#start_time, #end_time').timepicker({
-      minuteStep: 1,
-      showSeconds: true,
-      showMeridian: false,
-      defaultTime: false
+  {{-- bootstrap-datetimepicker  --}}
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script> --}}
+  {{-- <script>
+    $(function() {
+      $('#start_time, #end_time').datetimepicker({
+        
+      });
     });
-  </script>
-  {{-- bootstrap-timepicker  --}}
+  </script> --}}
+  {{-- bootstrap-datetimepicker  --}}
 @endpush

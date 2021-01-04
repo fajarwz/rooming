@@ -15,6 +15,7 @@
       <input type="{{ $input_type }}" 
       @isset($input_id) {{ 'id='.$input_id }} @endisset
       @isset($input_name) {{ 'name='.$input_name }} @endisset
+      @isset($placeholder) {{ 'placeholder='.$placeholder }} @endisset 
       class="form-control 
       @isset($is_datepicker) {{ $is_datepicker }} @endisset 
       @isset($is_timepicker) {{ $is_timepicker }} @endisset 

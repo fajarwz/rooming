@@ -162,6 +162,7 @@ return [
         'purpose'                   => 'Keperluan',
         'room_id'                   => 'Nama Ruangan',
         'start_time'                => 'Tanggal Mulai',
+        'today'                     => 'Hari Ini',
         'username'                  => 'Username',
     ],
 

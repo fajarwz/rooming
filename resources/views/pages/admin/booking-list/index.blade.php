@@ -40,26 +40,47 @@
 @endsection
 
 @push('after-script')
+  {{-- datatables plugin  --}}
   <script src="{{ asset('theme/datatables/sorting/enum.js') }}"></script>
+  {{-- datatables plugin  --}}
 
   <script>
   $(document).ready(function() {
-    $.fn.dataTable.enum( [ 'PENDING', 'DIBOOKING', 'DITOLAK', 'SELESAI', 'BATAL' ] );
+    $.fn.dataTable.enum( [ 'PENDING', 'DISETUJUI', 'DIBOOKING', 'SELESAI', 'DITOLAK', 'BATAL' ] );
+    // $.fn.dataTable.ext.type.order['status_order-pre'] = function ( s ) {
+    //   switch ( s ) {
+    //       case 'PENDING'    :return 1;
+    //       case 'DISETUJUI'  :return 2;
+    //       case 'DIBOOKING'  :return 3;
+    //       case 'SELESAI'    :return 4;
+    //       case 'BATAL'      :return 5;
+    //       case 'DITOLAK'    :return 6;
+    //   }
+    //   return 0;
+    // };
 
     $('#booking-list-table').DataTable({
       processing: true,
       serverSide: true,
       ajax: '{{ route('booking-list.json') }}',
+      // columnDefs: [{ 'targets': 4, type: 'date-euro' }],
+      // columnDefs: [{ targets: -1, type: 'status_order' }],
+      aoColumnDefs: [{ 
+        sType: "numeric", 
+        aTargets: [ 8 ],
+      }],
       columns: [
       {
         name: 'DT_RowIndex',
         data: 'DT_RowIndex',
         orderable: false, 
-        searchable: false
+        searchable: false,
       },
       {
-        name: 'room.photo',
+        name: 'room_status.room.photo',
         data: 'room_status.room.photo',
+        orderable: false, 
+        searchable: false,
         render: function ( data, type, row ) {
           if(data != null) {
             return `<div class="gallery gallery-fw">`
@@ -73,8 +94,9 @@
         }
       },
       {
-        name: 'room.name',
+        name: 'room_status.room.name',
         data: 'room_status.room.name',
+        orderable: false, 
         render: function ( data, type, row ) {
           var result = data;
 
@@ -121,22 +143,27 @@
       {
         name: 'user.name',
         data: 'user.name',
+        orderable: false, 
       },
       {
         name: 'date',
         data: 'date',
+        orderable: false, 
       },
       {
         name: 'start_time',
         data: 'start_time',
+        orderable: false, 
       },
       {
         name: 'end_time',
         data: 'end_time',
+        orderable: false, 
       },
       {
         name: 'purpose',
         data: 'purpose',
+        orderable: false, 
       },
       {
         name: 'status',
@@ -147,6 +174,8 @@
           if(data === 'PENDING') 
             result += `info`;
           else if(data === 'DISETUJUI')
+            result += `primary`;
+          else if(data === 'DIBOOKING')
             result += `primary`;
           else if(data === 'DITOLAK')
             result += `danger`;
