@@ -12,6 +12,13 @@
         <li class="menu-header">Dashboard</li>
         <li><a class="nav-link" href="{{ route('user.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
+        <li class="menu-header">RUANGAN</li>
+        <li class="{{ request()->is('user/room*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('room-list.index') }}">
+            <i class="fas fa-door-open"></i> <span>List Ruangan</span>
+          </a>
+        </li>
+
         <li class="menu-header">TRANSAKSI</li>
         <li class="{{ request()->is('my-booking-list*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('my-booking-list.index') }}">

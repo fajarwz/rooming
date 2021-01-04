@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\MyBookingListController;
+use App\Http\Controllers\User\RoomListController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -44,6 +45,11 @@ Route::prefix('/')
 Route::prefix('/')
     ->middleware(['auth', 'is.user'])
     ->group(function(){
+        Route::get('/room/json', [RoomListController::class, 'json'])
+        ->name('room-list.json');
+        Route::get('/room', [RoomListController::class, 'index'])
+        ->name('room-list.index');
+
         Route::get('/my-booking-list/json', [MyBookingListController::class, 'json'])
         ->name('my-booking-list.json');
         Route::get('/my-booking-list', [MyBookingListController::class, 'index'])
