@@ -86,7 +86,6 @@
       {
         name: 'room.name',
         data: 'room.name',
-        orderable: false,
         render: function ( data, type, row ) {
           var result = data;
 

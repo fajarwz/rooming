@@ -63,7 +63,7 @@ class MyBookingListController extends Controller
         $data['user_id']    = Auth::user()->id;
         $data['status']     = 'PENDING';
 
-        $room['name']       = Room::select('name')->where('id', $data['room_id'])->get();
+        $room               = Room::select('name')->where('id', $data['room_id'])->get();
 
         if(
             BookingList::where([
@@ -86,12 +86,13 @@ class MyBookingListController extends Controller
             ])->count() <= 0
         ) {
             if(BookingList::create($data)) {
-                $request->session()->flash('alert-success', 'Booking ruang '.$room['name'].' berhasil ditambahkan');
+                $request->session()->flash('alert-success', 'Booking ruang '.$room[0]['name'].' berhasil ditambahkan');
             } else {
-                $request->session()->flash('alert-failed', 'Booking ruang '.$room['name'].' gagal ditambahkan');
+                $request->session()->flash('alert-failed', 'Booking ruang '.$room[0]['name'].' gagal ditambahkan');
             }
         } else {
-            $request->session()->flash('alert-success', 'Ruangan '.$room_name['name'].' sudah dibooking');
+            // dd($room);
+            $request->session()->flash('alert-failed', 'Ruangan '.$room[0]['name'].' di waktu itu sudah dibooking');
             return redirect()->route('my-booking-list.create');
         }
 

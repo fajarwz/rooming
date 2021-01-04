@@ -22,7 +22,7 @@
         <li class="menu-header">TRANSAKSI</li>
         <li class="{{ request()->is('my-booking-list*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('my-booking-list.index') }}">
-            <i class="fas fa-list"></i> <span>My Booking</span>
+            <i class="fas fa-list"></i> <span>My Booking List</span>
           </a>
         </li>
 

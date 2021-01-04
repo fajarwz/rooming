@@ -38,9 +38,9 @@
           @slot('select_content')
             <option value="">Pilih Ruangan</option>
             @foreach ($rooms as $room)
-            <option value="{{ $room->room->id }}"
-                {{ old('room_id') == $room->room->id ? 'selected' : '' }}>
-                {{ $room->room->name }}</option>
+            <option value="{{ $room->id }}"
+                {{ old('room_id') == $room->id ? 'selected' : '' }}>
+                {{ $room->name }}</option>
             @endforeach
           @endslot
           @slot('input_name', 'room_id')
@@ -121,3 +121,5 @@
   </script> --}}
   {{-- bootstrap-datetimepicker  --}}
 @endpush
+
+@include('includes.notification')
