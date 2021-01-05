@@ -45,7 +45,7 @@ Route::prefix('/')
 Route::prefix('/')
     ->middleware(['auth', 'is.user'])
     ->group(function(){
-        Route::get('/booking-list-dashboard', [UserDashboardController::class, 'booking_list_dashboard'])
+        Route::get('/dashboard-booking-list', [UserDashboardController::class, 'dashboard_booking_list'])
         ->name('dashboard.booking-list');
         Route::get('/room/json', [RoomListController::class, 'json'])
         ->name('room-list.json');
