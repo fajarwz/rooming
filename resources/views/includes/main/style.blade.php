@@ -6,5 +6,5 @@
 <link rel="stylesheet" href="{{ asset('theme/css/style.min.css') }}">
 <link rel="stylesheet" href="{{ asset('theme/css/components.min.css') }}">
 
-{{-- SEMAK css --}}
+{{-- admin css --}}
 <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">

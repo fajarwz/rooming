@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard Admin - SEMAK')
+@section('title', 'Dashboard - ROOMING')
 
 @section('header-title', 'Dashboard')
 
@@ -15,7 +15,7 @@
   <div class="col-lg-6 col-md-6 col-sm-12">
     <div class="card card-statistic-2">
       <div class="card-stats">
-        <div class="card-stats-title">Statistik Booking - Bulan ini
+        <div class="card-stats-title">Statistik Booking
           
         </div>
         <div class="card-stats-items">

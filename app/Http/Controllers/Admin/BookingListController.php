@@ -47,9 +47,9 @@ class BookingListController extends Controller
         }
 
         if($item->update($data)) {
-            session()->flash('alert-success', 'Booking Ruang '.$item->name.' sekarang '.$data['status']);
+            session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
         } else {
-            session()->flash('alert-failed', 'Booking Ruang '.$item->name.' gagal diupdate');
+            session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
         }
         
         return redirect()->route('booking-list.index');
