@@ -8,10 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 
+use DataTables;
+
 use App\Models\BookingList;
 
 class DashboardController extends Controller
 {
+    public function booking_list_dashboard(){
+        $today = Carbon::now()->toDateString();
+
+        $data = BookingList::where([
+            ['user_id', Auth::user()->id],
+            ['date', $today],
+        ])->with([
+            'room'
+        ])->paginate(3);
+
+        return $data->toJson();
+    }
+
     public function index()
     {
         $booking_today      = BookingList::where([
