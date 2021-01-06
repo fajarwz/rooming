@@ -46,7 +46,7 @@ class BookingListStartCommand extends Command
             ['date', '=', Carbon::today()->toDateString()],
             ['start_time', '<', Carbon::now()->toTimeString()],
             ['end_time', '>', Carbon::now()->toTimeString()],
-        ])->with(['room_status.room']);
+        ]);
 
         $booking_list_status['status'] = 'DIGUNAKAN';
 

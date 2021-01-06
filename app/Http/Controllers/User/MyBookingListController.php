@@ -44,7 +44,7 @@ class MyBookingListController extends Controller
      */
     public function create()
     {
-        $rooms = Room::all();
+        $rooms = Room::orderBy('name')->get();
 
         return view('pages.user.my-booking-list.create', [
             'rooms' => $rooms,

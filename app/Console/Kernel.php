@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        'App\Console\Commands\BookingListExpiredCommand',
         'App\Console\Commands\BookingListFinishCommand',
         'App\Console\Commands\BookingListStartCommand',
     ];
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('booking:expired')->everyMinute();
         $schedule->command('booking:start')->everyMinute();
         $schedule->command('booking:finish')->everyMinute();
     }

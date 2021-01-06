@@ -8,21 +8,21 @@ use App\Models\BookingList;
 
 use Carbon\Carbon;
 
-class BookingListFinishCommand extends Command
+class BookingListExpiredCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'booking:finish';
+    protected $signature = 'booking:expired';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Set booking to finish based on time';
+    protected $description = 'Set booking to expired based on time';
 
     /**
      * Create a new command instance.
@@ -42,15 +42,15 @@ class BookingListFinishCommand extends Command
     public function handle()
     {
         $data_booking_list = BookingList::where([
-            ['status', '=', 'DIGUNAKAN'],
+            ['status', '=', 'PENDING'],
             ['date', '=', Carbon::today()->toDateString()],
-            ['end_time', '<', Carbon::now()->toTimeString()],
+            ['start_time', '<', Carbon::now()->toTimeString()],
         ]);
 
-        $booking_list_status['status'] = 'SELESAI';
+        $booking_list_status['status'] = 'KADALUWARSA';
 
         if($data_booking_list->update($booking_list_status))
-            $this->info('Finish booking-an selesai');
+            $this->info('Set booking to expired done!');
 
     }
 }

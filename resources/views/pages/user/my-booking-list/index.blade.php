@@ -141,6 +141,8 @@
             result += `primary`;
           else if(data === 'DITOLAK')
             result += `danger`;
+          else if(data === 'KADALUWARSA')
+            result += `warning`;
           else if(data === 'BATAL')
             result += `warning`;
           else if(data === 'SELESAI')
