@@ -40,35 +40,13 @@
 @endsection
 
 @push('after-script')
-  {{-- datatables plugin  --}}
-  <script src="{{ asset('theme/datatables/sorting/enum.js') }}"></script>
-  {{-- datatables plugin  --}}
 
   <script>
   $(document).ready(function() {
-    $.fn.dataTable.enum( [ 'PENDING', 'DISETUJUI', 'DIGUNAKAN', 'SELESAI', 'DITOLAK', 'BATAL' ] );
-    // $.fn.dataTable.ext.type.order['status_order-pre'] = function ( s ) {
-    //   switch ( s ) {
-    //       case 'PENDING'    :return 1;
-    //       case 'DISETUJUI'  :return 2;
-    //       case 'DIGUNAKAN'  :return 3;
-    //       case 'SELESAI'    :return 4;
-    //       case 'BATAL'      :return 5;
-    //       case 'DITOLAK'    :return 6;
-    //   }
-    //   return 0;
-    // };
-
     $('#booking-list-table').DataTable({
       processing: true,
       serverSide: true,
       ajax: '{{ route('booking-list.json') }}',
-      // columnDefs: [{ 'targets': 4, type: 'date-euro' }],
-      // columnDefs: [{ targets: -1, type: 'status_order' }],
-      // aoColumnDefs: [{ 
-      //   sType: "numeric", 
-      //   aTargets: [ 8 ],
-      // }],
       columnDefs: [ {
             targets: [ 4 ],
             orderData: [ 4, 5 ]

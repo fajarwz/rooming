@@ -96,12 +96,7 @@
 @push('after-style')
   {{-- datepicker  --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  {{-- datepicker  --}}
-
-  {{-- bootstrap-datetimepicker  --}}
-  {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/> --}}
-  {{-- bootstrap-datetimepicker  --}}
-  
+  {{-- datepicker  --}}  
 @endpush
 
 @push('after-script')
@@ -109,17 +104,6 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   {{-- datepicker  --}}
-
-  {{-- bootstrap-datetimepicker  --}}
-  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script> --}}
-  {{-- <script>
-    $(function() {
-      $('#start_time, #end_time').datetimepicker({
-        
-      });
-    });
-  </script> --}}
-  {{-- bootstrap-datetimepicker  --}}
 @endpush
 
 @include('includes.notification')
