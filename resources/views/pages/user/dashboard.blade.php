@@ -25,7 +25,7 @@
     @component('components.statistic-card')
       @slot('bg_color', 'bg-success')
       @slot('icon', 'fas fa-calendar-alt')
-      @slot('title', 'Book Sepanjang Waktu')
+      @slot('title', 'Book Semua')
       @slot('value', $booking_lifetime)
     @endcomponent
   </div>
