@@ -43,6 +43,7 @@
 @endsection
 
 @push('after-script')
+<script src="//cdn.datatables.net/plug-ins/1.10.22/dataRender/ellipsis.js"></script>
 
   <script>
   $(document).ready(function() {
@@ -51,13 +52,20 @@
       processing: true,
       serverSide: true,
       ajax: '{{ route('my-booking-list.json') }}',
-      columnDefs: [ {
+      columnDefs: [ 
+        {
             targets: [ 3 ],
             orderData: [ 3, 4 ]
-        }, {
+        }, 
+        {
             targets: [ 4 ],
             orderData: [ 4, 3 ]
-        }, ],
+        },
+        {
+          targets: 6,
+          render: $.fn.dataTable.render.ellipsis( 20, true )
+        }, 
+      ],
       order: [[3, 'desc'], [4, 'desc']],
       columns: [
       {
@@ -75,7 +83,7 @@
           if(data != null) {
             return `<div class="gallery gallery-fw">`
               + `<a href="{{ asset('storage/${data}') }}" data-toggle="lightbox">`
-                + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 100px; height: auto;">`
+                + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 80px; height: auto;">`
               + `</a>`
             + '</div>';
           } else {
@@ -96,7 +104,7 @@
           } else {
             result += '<div class="table-links">';
           }
-
+        
           if(row.status === 'PENDING' || row.status === 'DISETUJUI') {
             result += ' <a href="javascript:;" data-id="'+row.id+'" '
             + ' data-title="Batalkan"'

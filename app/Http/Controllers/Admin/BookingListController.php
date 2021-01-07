@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\BookingList;
 
 use DataTables;
+use Carbon\Carbon;
 
 class BookingListController extends Controller
 {
@@ -33,7 +34,9 @@ class BookingListController extends Controller
 
     public function update($id, $value)
     {
-        $item = BookingList::findOrFail($id);
+        $item   = BookingList::findOrFail($id);
+        $today  = Carbon::today()->toDateString();
+        $now    = Carbon::now()->toTimeString();
 
         if($value == 1) {
             $data['status'] = 'DISETUJUI';
@@ -46,10 +49,12 @@ class BookingListController extends Controller
             return redirect()->route('booking-list.index');
         }
 
-        if($item->update($data)) {
-            session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
-        } else {
-            session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
+        if($item['date'] > $today || ($item['date'] == $today && $item['start_time'] > $now)) {
+            if($item->update($data)) {
+                session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
+            } else {
+                session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
+            }
         }
         
         return redirect()->route('booking-list.index');
