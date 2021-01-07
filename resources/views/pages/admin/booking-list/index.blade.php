@@ -124,22 +124,22 @@
               + ' name="acc-btn">Setujui'
               + ' </a>';
             }
+          }
 
-            if(row.status === 'PENDING') {
-              result += '<div class="bullet"></div>';
-            }
+          if(row.status === 'PENDING') {
+            result += '<div class="bullet"></div>';
+          }
 
-            if(row.status === 'PENDING' || row.status === 'DISETUJUI') {
-              result += ' <a href="javascript:;" data-id="'+row.id+'" '
-              + ' data-title="Tolak"'
-              + ' data-body="Yakin tolak booking ini?"'
-              + ' data-value="0"'
-              + ' class="text-danger"'
-              + ' id="deny-btn"'
-              + ' name="deny-btn">Tolak'
-              + ' </a>';
-              + '<div class="bullet"></div>';
-            }
+          if(row.status === 'PENDING' || row.status === 'DISETUJUI') {
+            result += ' <a href="javascript:;" data-id="'+row.id+'" '
+            + ' data-title="Tolak"'
+            + ' data-body="Yakin tolak booking ini?"'
+            + ' data-value="0"'
+            + ' class="text-danger"'
+            + ' id="deny-btn"'
+            + ' name="deny-btn">Tolak'
+            + ' </a>';
+            + '<div class="bullet"></div>';
           }
 
           + '</div>';
