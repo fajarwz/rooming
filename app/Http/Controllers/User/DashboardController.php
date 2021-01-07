@@ -15,12 +15,11 @@ use App\Models\BookingList;
 class DashboardController extends Controller
 {
     public function dashboard_booking_list(){
-        $today = Carbon::now()->toDateString();
+        $today = Carbon::today()->toDateString();
 
-        $data = BookingList::where([
-            ['user_id', Auth::user()->id],
-            ['date', $today],
-        ])->with([
+        $data = BookingList::where('user_id', Auth::user()->id)
+        ->whereDate('created_at', '=', $today)
+        ->with([
             'room'
         ])->take(3);
 
@@ -31,11 +30,11 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // dd(Auth::user()->id);
-        $booking_today      = BookingList::where([
-            ['user_id', Auth::user()->id],
-            ['date', Carbon::now()->toDateString()],
-        ])->count();
+        $today = Carbon::today()->toDateString();
+
+        $booking_today      = BookingList::where('user_id', Auth::user()->id)
+        ->whereDate('created_at', '=', $today)
+        ->count();
         $booking_lifetime   = BookingList::where([
             ['user_id', Auth::user()->id],
         ])->count();
