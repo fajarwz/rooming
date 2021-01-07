@@ -96,7 +96,7 @@
 @push('after-style')
   {{-- datepicker  --}}
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  {{-- datepicker  --}}  
+  {{-- datepicker  --}}
 @endpush
 
 @push('after-script')

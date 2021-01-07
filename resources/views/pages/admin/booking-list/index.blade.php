@@ -40,6 +40,7 @@
 @endsection
 
 @push('after-script')
+<script src="//cdn.datatables.net/plug-ins/1.10.22/dataRender/ellipsis.js"></script>
 
   <script>
   $(document).ready(function() {
@@ -47,13 +48,20 @@
       processing: true,
       serverSide: true,
       ajax: '{{ route('booking-list.json') }}',
-      columnDefs: [ {
+      columnDefs: [ 
+        {
             targets: [ 4 ],
             orderData: [ 4, 5 ]
-        }, {
+        }, 
+        {
             targets: [ 5 ],
             orderData: [ 5, 4 ]
-        }, ],
+        }, 
+        {
+          targets: 7,
+          render: $.fn.dataTable.render.ellipsis( 20, true )
+        } ,
+      ],
       order: [[4, 'desc'], [5, 'desc']],
       columns: [
       {
@@ -71,7 +79,7 @@
           if(data != null) {
             return `<div class="gallery gallery-fw">`
               + `<a href="{{ asset('storage/${data}') }}" data-toggle="lightbox">`
-              + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 100px; height: auto;">`
+              + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 80px; height: auto;">`
               + `</a>`
             + '</div>';
           } else {
@@ -105,8 +113,8 @@
             + ' </a>';
           }
 
-          if(row.status === 'PENDING'){
-            result += ' <div class="bullet"></div>';
+          if(row.status === 'PENDING') {
+            result += '<div class="bullet"></div>';
           }
 
           if(row.status === 'PENDING' || row.status === 'DISETUJUI') {
@@ -118,6 +126,7 @@
             + ' id="deny-btn"'
             + ' name="deny-btn">Tolak'
             + ' </a>';
+            + '<div class="bullet"></div>';
           }
 
           + '</div>';

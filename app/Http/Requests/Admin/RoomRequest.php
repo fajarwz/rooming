@@ -25,7 +25,7 @@ class RoomRequest extends FormRequest
     {
         return [
             'name'              => 'sometimes|required|string|max:100|unique:rooms,name,NULL,id,deleted_at,NULL',
-            'description'       => 'nullable|string|max:255',
+            'description'       => 'nullable|string|max:100',
             'capacity'          => 'nullable|numeric|lt:100000',
             'photo'             => 'nullable|image|max:2048',
         ];

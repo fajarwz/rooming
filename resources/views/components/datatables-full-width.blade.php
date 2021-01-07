@@ -48,7 +48,7 @@
       scrollX: true,
       scrollCollapse: true,
       language: {
-        // url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json",
+        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json",
         emptyTable: '<div class="empty-state" data-height="300" style="height: 300px;">'
                     + '<div class="empty-state-icon">'
                     + '<i class="fas fa-question"></i>'
