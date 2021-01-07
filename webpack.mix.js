@@ -19,3 +19,4 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/bootstrap-timepicker/js/bootstrap-timepicker.js', 'public/bootstrap-timepicker/js')
     .postCss('resources/bootstrap-timepicker/css/bootstrap-timepicker.css', 'public/bootstrap-timepicker/css')
     .sass('resources/sass/app.scss', 'public/css');
+    // .sass('resources/css/admin.scss', 'public/css/admin');

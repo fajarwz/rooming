@@ -47,7 +47,7 @@ class BookingListExpiredCommand extends Command
             ['start_time', '<', Carbon::now()->toTimeString()],
         ]);
 
-        $booking_list_status['status'] = 'KADALUWARSA';
+        $booking_list_status['status'] = 'EXPIRED';
 
         if($data_booking_list->update($booking_list_status))
             $this->info('Set booking to expired done!');

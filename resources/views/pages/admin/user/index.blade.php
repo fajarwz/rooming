@@ -38,12 +38,7 @@
 
 @endsection
 
-@push('after-style')
-  @include('includes.datatables-styles')
-@endpush
-
 @push('after-script')
-  @include('includes.datatables-scripts')
 
   <script>
     $(document).ready(function() {

@@ -16,7 +16,7 @@
         @endisset
         
         <div class="table-responsive">
-          <table class="table table-striped w-100" data-scroll-y="400" id="{{ $table_id }}">
+          <table class="table table-striped display nowrap w-100" data-scroll-y="400" id="{{ $table_id }}">
             <thead>
               {{ $table_header }}
             </thead>
@@ -45,7 +45,7 @@
         defaultContent: '-'
       },
       stateSave: true,
-      // scrollY: "400px",
+      scrollX: true,
       scrollCollapse: true,
       language: {
         // url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json",
@@ -60,13 +60,13 @@
                     + `<a href=${add_link} class="btn btn-primary mt-4">Buat Data Baru</a>`
                     + '</div>',
       },
-      responsive: {
-          details: {
-              display: $.fn.dataTable.Responsive.display.childRowImmediate,
-              type: 'none',
-              target: ''
-          }
-      }
+      // responsive: {
+      //     details: {
+      //         display: $.fn.dataTable.Responsive.display.childRowImmediate,
+      //         type: 'none',
+      //         target: ''
+      //     }
+      // }
     });
   </script>
 

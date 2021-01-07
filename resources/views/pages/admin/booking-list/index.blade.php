@@ -161,7 +161,7 @@
             result += `primary`;
           else if(data === 'DITOLAK')
             result += `danger`;
-          else if(data === 'KADALUWARSA')
+          else if(data === 'EXPIRED')
             result += `warning`;
           else if(data === 'BATAL')
             result += `warning`;
