@@ -64,7 +64,7 @@
           if(data != null) {
             return `<div class="gallery gallery-fw">`
               + `<a href="{{ asset('storage/${data}') }}" data-toggle="lightbox">`
-              + `<img src="{{ asset('storage/${data}') }}" class="img-fluid">`
+                + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 100px; height: auto;">`
               + `</a>`
             + '</div>';
           } else {
