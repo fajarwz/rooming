@@ -46,6 +46,12 @@
             <div class="card-stats-item-label">Ditolak</div>
           </div>
         </div>
+        <div class="card-stats-items justify-content-center">
+          <div class="card-stats-item">
+            <div class="card-stats-item-count">{{ $booking_list_expired }}</div>
+            <div class="card-stats-item-label">Expired</div>
+          </div>
+        </div>
       </div>
       <div class="card-icon shadow-primary bg-primary">
         <i class="fas fa-list"></i>
