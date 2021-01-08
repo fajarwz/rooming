@@ -78,9 +78,9 @@ return [
     ],
     'max' => [
         'numeric' => ':attribute tidak boleh lebih besar dari :max.',
-        'file' => 'The :attribute tidak boleh lebih besar dari :max KB.',
-        'string' => 'The :attribute tidak boleh lebih banyak dari :max karakter.',
-        'array' => 'The :attribute tidak boleh lebih banyak dari :max item.',
+        'file' => ':attribute tidak boleh lebih besar dari :max KB.',
+        'string' => ':attribute tidak boleh lebih banyak dari :max karakter.',
+        'array' => ':attribute tidak boleh lebih banyak dari :max item.',
     ],
     'mimes' => ':attribute harus berupa file bertipe :values.',
     'mimetypes' => 'The :attribute must be a file of type: :values.',

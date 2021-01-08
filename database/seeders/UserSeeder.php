@@ -23,18 +23,36 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'id'        => 2,
-            'name'      => 'User',
-            'username'  => 'user',
-            'password'  => bcrypt('user'),
+            'id'            => 2,
+            'name'          => 'User',
+            'username'      => 'user',
+            'password'      => bcrypt('user'),
+            'description'   => 'Accounting Staff',
+            'role'          => 'USER',
+        ]);
+
+        User::create([
+            'id'            => 3,
+            'name'          => 'Fajarwz',
+            'username'      => 'fajar',
+            'password'      => bcrypt('fajar'),
+            'description'   => 'IT Staff',
+            'role'          => 'USER',
+        ]);
+
+        User::create([
+            'id'        => 4,
+            'name'      => 'Foo',
+            'username'  => 'foo',
+            'password'  => bcrypt('foo'),
             'role'      => 'USER',
         ]);
 
         User::create([
-            'id'        => 3,
-            'name'      => 'Fajarwz',
-            'username'  => 'fajar',
-            'password'  => bcrypt('fajar'),
+            'id'        => 5,
+            'name'      => 'Bar',
+            'username'  => 'bar',
+            'password'  => bcrypt('bar'),
             'role'      => 'USER',
         ]);
     }

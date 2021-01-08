@@ -40,6 +40,7 @@
 @endsection
 
 @push('after-script')
+<script src="//cdn.datatables.net/plug-ins/1.10.22/dataRender/ellipsis.js"></script>
 
   <script>
   $(document).ready(function() {
@@ -47,13 +48,20 @@
       processing: true,
       serverSide: true,
       ajax: '{{ route('booking-list.json') }}',
-      columnDefs: [ {
+      columnDefs: [ 
+        {
             targets: [ 4 ],
             orderData: [ 4, 5 ]
-        }, {
+        }, 
+        {
             targets: [ 5 ],
             orderData: [ 5, 4 ]
-        }, ],
+        }, 
+        {
+          targets: 7,
+          render: $.fn.dataTable.render.ellipsis( 20, true )
+        } ,
+      ],
       order: [[4, 'desc'], [5, 'desc']],
       columns: [
       {
@@ -71,7 +79,7 @@
           if(data != null) {
             return `<div class="gallery gallery-fw">`
               + `<a href="{{ asset('storage/${data}') }}" data-toggle="lightbox">`
-              + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 100px; height: auto;">`
+              + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 80px; height: auto;">`
               + `</a>`
             + '</div>';
           } else {
@@ -86,6 +94,17 @@
         render: function ( data, type, row ) {
           var result = data;
 
+          var now = new Date();
+
+          var data_year = (row.date).substring(0, 4);
+          var data_month = (row.date).substring(5, 7);
+          var data_date = (row.date).substring(8);
+
+          var data_start_time_hours = (row.start_time).substring(0, 2);
+          var data_start_time_minutes = (row.start_time).substring(3, 5);
+
+          var data_full_time = new Date(data_year, data_month-1, data_date, data_start_time_hours, data_start_time_minutes);
+
           var is_touch_device = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 
           if (is_touch_device) {
@@ -94,19 +113,21 @@
             result += '<div class="table-links">';
           }
 
-          if(row.status === 'PENDING' || row.status === 'DITOLAK') {
-            result += ' <a href="javascript:;" data-id="'+row.id+'" '
-            + ' data-title="Setujui"'
-            + ' data-body="Yakin setujui booking ini?"'
-            + ' data-value="1"'
-            + ' class="text-primary"'
-            + ' id="acc-btn"'
-            + ' name="acc-btn">Setujui'
-            + ' </a>';
+          if(data_full_time > now) {
+            if(row.status === 'PENDING' || row.status === 'DITOLAK') {
+              result += ' <a href="javascript:;" data-id="'+row.id+'" '
+              + ' data-title="Setujui"'
+              + ' data-body="Yakin setujui booking ini?"'
+              + ' data-value="1"'
+              + ' class="text-primary"'
+              + ' id="acc-btn"'
+              + ' name="acc-btn">Setujui'
+              + ' </a>';
+            }
           }
 
-          if(row.status === 'PENDING'){
-            result += ' <div class="bullet"></div>';
+          if(row.status === 'PENDING') {
+            result += '<div class="bullet"></div>';
           }
 
           if(row.status === 'PENDING' || row.status === 'DISETUJUI') {
@@ -118,6 +139,7 @@
             + ' id="deny-btn"'
             + ' name="deny-btn">Tolak'
             + ' </a>';
+            + '<div class="bullet"></div>';
           }
 
           + '</div>';

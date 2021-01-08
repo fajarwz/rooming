@@ -20,12 +20,12 @@ class AdminBookingListSeeder extends Seeder
 
         for($i = 1 ; $i <= 1000 ; $i++){
             BookingList::create([
-                'room_id'       => 2,
-                'user_id'       => 2,
+                'room_id'       => $faker->numberBetween($min = 1, $max = 4),
+                'user_id'       => $faker->numberBetween($min = 2, $max = 4),
                 'date'          => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'start_time'    => $faker->time($format = 'H:i', $max = 'now'),
                 'end_time'      => $faker->time($format = 'H:i', $max = 'now'),
-                'purpose'       => $faker->sentence(),
+                'purpose'       => $faker->text($maxNbChars = 100),
                 'status'        => $faker->randomElement($array = array ('PENDING','DISETUJUI','DITOLAK','BATAL')),
             ]);
         }
