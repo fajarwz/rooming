@@ -61,14 +61,18 @@ Admin\
 Username: admin\
 Password: admin
 
-by: fajarwz
-
-[Visit my Medium](http://fajarwz.medium.com)\
-[Get Connected](http://linkedin.com/in/fajarwz)\
-[Let's be friends](http://fb.me/fajarwz123)
-
 ### Lisensi
 ROOMING menggunakan [lisensi MIT](https://github.com/fajarwz/rooming/blob/main/LICENSE)
 
 ### Demo
 [Youtube](https://youtu.be/ZZL4VrJCA3E)
+
+### Misc
+Aplikasi ini memanfaatkan Blade Component dengan teknik reusable component. Form input hanya 1, tapi dipanggil di setiap fitur tambah data. Input field juga ada 1 tapi dipanggil berkali-kali di setiap fitur tambah data. Lumayan untuk belajar blade component.
+
+by: fajarwz
+
+[Visit my Web](fajarwz.netlify.app)\
+[Visit my Medium](http://fajarwz.medium.com)\
+[Get Connected](http://linkedin.com/in/fajarwz)\
+[Let's be friends](http://fb.me/fajarwz123)
