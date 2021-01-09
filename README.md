@@ -19,6 +19,8 @@ Berikut ini ialah penjelasan status booking yang dibuat oleh User. Otomatisasi p
 6. SELESAI. Ketika waktu booking selesai, dilihat berdasarkan tanggal, waktu mulai dan waktu selesai booking User.
 7. EXPIRED. Ketika permintaan booking User dibiarkan PENDING sampai melewati waktu mulai booking.
 
+Note: ROOMING menggunakan waktu Jakarta / Waktu Indonesia Barat. Jika ingin mengganti waktu yang digunakan, ganti nilai `APP_TIMEZONE` di .env
+
 ### Tech Stack
 - Laravel 8
 - Bootstrap 4
