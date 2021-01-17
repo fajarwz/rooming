@@ -72,7 +72,7 @@ Aplikasi ini memanfaatkan Blade Component dengan teknik reusable component. Form
 
 by: fajarwz
 
-[Visit my Web](fajarwz.netlify.app)\
-[Visit my Medium](http://fajarwz.medium.com)\
-[Get Connected](http://linkedin.com/in/fajarwz)\
-[Let's be friends](http://fb.me/fajarwz123)
+[Visit my Web](https://fajarwz.netlify.app)\
+[Visit my Medium](https://fajarwz.medium.com)\
+[Get Connected](https://linkedin.com/in/fajarwz)\
+[Let's be friends](https://fb.me/fajarwz123)
