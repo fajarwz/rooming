@@ -13,7 +13,7 @@
         <li><a class="nav-link" href="{{ route('user.dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
         <li class="menu-header">RUANGAN</li>
-        <li class="{{ request()->is('user/room*') ? 'active' : '' }}">
+        <li class="{{ request()->is('room*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('room-list.index') }}">
             <i class="fas fa-door-open"></i> <span>List Ruangan</span>
           </a>

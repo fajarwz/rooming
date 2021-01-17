@@ -17,7 +17,7 @@
 
 @section('content')
 
-  @component('components.datatables-full-width')
+  @component('components.datatables')
     
     @slot('table_id', 'room-table')
 

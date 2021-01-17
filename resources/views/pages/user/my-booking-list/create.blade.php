@@ -27,6 +27,9 @@
 @section('content')
 
   @component('components.data-entry-form')
+    @slot('row_class', 'justify-content-center')
+    @slot('col_class', 'col-12 col-md-6')
+    
     @slot('form_method', 'POST')
     @slot('form_action', 'my-booking-list.store')
 
@@ -44,16 +47,17 @@
             @endforeach
           @endslot
           @slot('input_name', 'room_id')
-          @slot('is_required', 'required')
-          @slot('is_autofocus', 'autofocus')
+          @slot('form_group_class', 'required')
+          @slot('other_attributes', 'required autofocus')
       @endcomponent
 
       @component('components.input-field')
           @slot('input_label', 'Tanggal Booking')
           @slot('input_type', 'text')
           @slot('input_name', 'date')
-          @slot('is_datepicker', 'datepicker')
-          @slot('is_required', 'required')
+          @slot('input_classes', 'datepicker')
+          @slot('form_group_class', 'required')
+          @slot('other_attributes', 'required')
       @endcomponent
 
       @component('components.input-field')
@@ -64,8 +68,9 @@
           @slot('input_id', 'start_time')
           @slot('input_name', 'start_time')
           @slot('placeholder', 'HH:mm')
-          @slot('is_timepicker', 'timepicker')
-          @slot('is_required', 'required')
+          @slot('input_classes', 'timepicker')
+          @slot('form_group_class', 'col required')
+          @slot('other_attributes', 'required')
       @endcomponent
 
       @component('components.input-field')
@@ -76,18 +81,26 @@
           @slot('input_id', 'end_time')
           @slot('input_name', 'end_time')
           @slot('placeholder', 'HH:mm')
-          @slot('is_timepicker', 'timepicker')
-          @slot('is_required', 'required')
+          @slot('input_classes', 'timepicker')
+          @slot('form_group_class', 'col required')
+          @slot('other_attributes', 'required')
       @endcomponent
 
       @component('components.input-field')
           @slot('input_label', 'Keperluan')
           @slot('input_type', 'text')
           @slot('input_name', 'purpose')
-          @slot('is_required', 'required')
+          @slot('form_group_class', 'required')
+          @slot('other_attributes', 'required')
       @endcomponent
 
     @endslot
+
+    @slot('card_footer', 'true')
+    @slot('card_footer_class', 'text-right')
+    @slot('card_footer_content')
+      @include('includes.save-cancel-btn')
+    @endslot 
 
   @endcomponent
 

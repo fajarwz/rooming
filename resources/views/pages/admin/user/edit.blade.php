@@ -29,6 +29,9 @@
 
   @component('components.data-entry-form')
 
+    @slot('row_class', 'justify-content-center')
+    @slot('col_class', 'col-12 col-md-6')
+
     @slot('form_method', 'POST')
     @slot('method_put', 'PUT')
     @slot('form_action', 'user.update')
@@ -41,8 +44,8 @@
           @slot('input_type', 'text')
           @slot('input_name', 'name')
           @slot('input_value', $item->name)
-          @slot('is_required', 'required')
-          @slot('is_autofocus', 'autofocus')
+          @slot('form_group_class', 'required')
+          @slot('other_attributes', 'required autofocus')
       @endcomponent
 
       @component('components.input-field')
@@ -53,6 +56,12 @@
       @endcomponent
 
     @endslot
+
+    @slot('card_footer', 'true')
+    @slot('card_footer_class', 'text-right')
+    @slot('card_footer_content')
+      @include('includes.save-cancel-btn')
+    @endslot 
 
   @endcomponent
 

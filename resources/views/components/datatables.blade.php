@@ -2,16 +2,15 @@
   <div class="col-12">
     <div class="card">
       @if(isset($card_header) && $card_header == 'true')
-        <div class="card-header">
-          <h4>{{$card_header_title}}</h4>
-          <small>{{$card_header_small}}</small>
-        </div>
+      <div class="card-header @isset($card_header_class) {{ $card_header_class }} @endisset">
+        {{ $card_header_content }}
+      </div>
       @endif
       <div class="card-body">
 
-        @isset($add_button)
-          <div id="buttons" class="buttons">
-            {{ $add_button }}
+        @isset($buttons)
+          <div id="buttons" class="buttons @isset($buttons_class) {{ $buttons_class }} @endisset">
+            {{ $buttons }}
           </div>
         @endisset
         

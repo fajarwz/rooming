@@ -32,15 +32,21 @@
   
 </div>
 
-@component('components.datatables-full-width')
+@component('components.datatables')
     
   @slot('table_id', 'dashboard-booking-list-table')
 
   @slot('card_header', 'true')
-  @slot('card_header_title', 'Booking hari ini')
-  @slot('card_header_small', 'Diambil dari 3 data teratas.')
+  @slot('card_header_content')
+    <h4>
+      Booking hari ini
+    </h4>
+    <small>
+      Diambil dari 3 data teratas.
+    </small>
+  @endslot
 
-  @slot('add_button')
+  @slot('buttons')
     <a href="{{ route('my-booking-list.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Booking</a>
   @endslot
 
@@ -58,71 +64,6 @@
   @endslot
     
 @endcomponent
-
-{{-- <div class="row">
-  <div class="col-12">
-      <div class="card ">
-          <div class="card-header ">
-              <h4 class="card-title">Booking Hari ini</h4>
-              <p class="card-category">diambil dari 3 booking terbaru</p>
-          </div>
-          <div class="card-body ">
-
-            <a 
-              href="{{ route('my-booking-list.create') }}" 
-              class="btn btn-primary btn-sm mb-2">
-                <i class="fas fa-plus"></i>&nbsp;&nbsp;Buat Booking
-            </a>
-
-            <div class="table-responsive overflow-auto">
-              <table class="table table-bordered" id="request-table" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Foto Ruangan</th>
-                    <th>Ruangan</th>
-                    <th>Tanggal</th>
-                    <th>Waktu Mulai</th>
-                    <th>Waktu Selesai</th>
-                    <th>Keperluan</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @forelse ($book_today as $item)
-                      <tr>
-                          <td>{{ $no }}</td>
-                          <td>{{ $item->room->photo }}</td>
-                          <td>{{ $item->room->name }}</td>
-                          <td>{{ $item->date }}</td>
-                          <td>{{ $item->start_time }}</td>
-                          <td>{{ $item->end_time }}</td>
-                          <td>{{ $item->purpose }}</td>
-                          <td>{{ $item->description }}</td>
-                          <td>
-                              <a 
-                                  href="{{ route('user.request.print', $item->id) }}" 
-                                  class="btn btn-primary btn-sm mb-2" id="">
-                                  <i class="fas fa-print"></i>&nbsp;&nbsp;Print
-                              </a>
-                          </td>
-                      </tr>
-                  @empty 
-                      <tr>
-                          <td colspan="9" class="text-center">
-                              Belum ada request yang dibuat hari ini, klik tombol Buat Request untuk membuat
-                          </td>
-                      </tr>
-                  @endforelse
-                </tbody>
-              </table>
-            </div>
-
-          </div>
-      </div>
-  </div>
-</div> --}}
 
 @endsection
 

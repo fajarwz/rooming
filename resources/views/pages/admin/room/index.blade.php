@@ -17,9 +17,9 @@
 
 @section('content')
 
-  @component('components.datatables-full-width')
+  @component('components.datatables')
 
-    @slot('add_button')
+    @slot('buttons')
       <a href="{{ route('room.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Tambah Ruangan</a>
     @endslot
     
