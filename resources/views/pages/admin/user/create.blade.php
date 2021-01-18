@@ -26,7 +26,7 @@ Tambah Data User
 
 @section('content')
 
-  @component('components.data-entry-form')
+  @component('components.form')
 
     @slot('row_class', 'justify-content-center')
     @slot('col_class', 'col-12 col-md-6')
