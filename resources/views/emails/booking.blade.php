@@ -10,9 +10,18 @@
     Hai, <strong>{{ $receiver_name }}</strong>
 
     @if ($to_role == 'ADMIN')
-        <p>Ada request booking baru dengan data:</p>    
+        @if ($status == 'CREATED')
+            <p>Ada request booking baru dengan data:</p>
+        @elseif ($status == 'CANCELED')
+            <p>Request booking berikut ini sekarang dibatalkan:</p>
+        @endif
+        
     @elseif ($to_role == 'USER')
-        <p>Request kamu <strong>berhasil dibuat</strong>! Berikut ini datanya:</p>
+        @if ($status == 'CREATED')
+            <p>Request kamu <strong>berhasil dibuat</strong>! Berikut ini datanya:</p>
+        @elseif ($status == 'CANCELED')
+            <p>Request kamu sekarang <strong>dibatalkan</strong>! Berikut ini datanya:</p>
+        @endif
     @endif
 
     <table>

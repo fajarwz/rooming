@@ -51,10 +51,14 @@ class BookingMail extends Mailable
         if($this->to_role == 'ADMIN') {
             if($this->status == 'CREATED') {
                 return $this->subject('Request booking baru')->view('emails.booking');
+            } elseif($this->status == 'CANCELED') {
+                return $this->subject('Request booking dibatalkan')->view('emails.booking');
             }
         } elseif($this->to_role == 'USER'){
             if($this->status == 'CREATED') {
                 return $this->subject('Request booking berhasil dibuat')->view('emails.booking');
+            } if($this->status == 'CANCELED') {
+                return $this->subject('Request booking berhasil dibatalkan')->view('emails.booking');
             }
         }
     }

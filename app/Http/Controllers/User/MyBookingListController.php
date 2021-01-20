@@ -68,8 +68,8 @@ class MyBookingListController extends Controller
         $data['user_id']    = Auth::user()->id;
         $data['status']     = 'PENDING';
 
-        $user_name          = Auth::user()->name;
-        $user_email         = Auth::user()->email;
+        $user_name          = $this->getUserName();
+        $user_email         = $this->getUserEmail();
         $room               = Room::select('name')->where('id', $data['room_id'])->firstOrFail();
 
         if(
@@ -95,7 +95,7 @@ class MyBookingListController extends Controller
             if(BookingList::create($data)) {
                 $request->session()->flash('alert-success', 'Booking ruang '.$room->name.' berhasil ditambahkan');
 
-                $admin      = User::select('name', 'email')->where('role', 'ADMIN')->firstOrFail();
+                $admin      = $this->getAdminData();
                 $status     = 'CREATED';
 
                 $to_role    = 'USER';
@@ -134,19 +134,45 @@ class MyBookingListController extends Controller
         $item           = BookingList::findOrFail($id);
         $data['status'] = 'BATAL';
 
+        $user_name          = $this->getUserName();
+        $user_email         = $this->getUserEmail();
+
+        $room               = Room::select('name')->where('id', $item->room_id)->firstOrFail();
+
         if($item->update($data)) {
-            session()->flash('alert-success', 'Booking Ruang '.$item->name.' berhasil dibatalkan');
+            session()->flash('alert-success', 'Booking Ruang '.$room->name.' berhasil dibatalkan');
+
+            $admin      = $this->getAdminData();
+            $status     = 'CANCELED';
+
+            $to_role    = 'USER';
+
+            Mail::to($user_email)
+                // ->send(new BookingMail($data['user_id'], $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $admin[$i]['name'], URL::to('/my-booking-list')));
+                ->send(new BookingMail($user_name, $room->name, $item->date, $item->start_time, $item->end_time, $item->purpose, $to_role, $user_name, 'https://google.com', $status));
+
+            $to_role    = 'ADMIN';
+
+            Mail::to($admin->email)
+                // ->send(new BookingMail($data['user_id'], $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $admin[$i]['name'], URL::to('/admin/booking-list')));
+                ->send(new BookingMail($user_name, $room->name, $item->date, $item->start_time, $item->end_time, $item->purpose, $to_role, $admin->name, 'https://google.com', $status));
         } else {
-            session()->flash('alert-failed', 'Booking Ruang '.$item->name.' gagal dibatalkan');
+            session()->flash('alert-failed', 'Booking Ruang '.$room->name.' gagal dibatalkan');
         }
         
         return redirect()->route('my-booking-list.index');
     }
 
-    public function adminEmail() 
+    public function getAdminData() 
     {
-        $email  = User::select('email')->where('role', 'ADMIN')->get();
+        return User::select('name','email')->where('role', 'ADMIN')->firstOrFail();
+    }
 
-        return $email; 
+    public function getUserName() {
+        return Auth::user()->name;
+    }
+
+    public function getUserEmail() {
+        return Auth::user()->email;
     }
 }
