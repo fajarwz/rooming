@@ -8,7 +8,13 @@
 </head>
 <body>
     Hai, <strong>{{ $receiver_name }}</strong>
-    <p>Ada request booking baru</p>
+
+    @if ($to_role == 'ADMIN')
+        <p>Ada request booking baru dengan data:</p>    
+    @elseif ($to_role == 'USER')
+        <p>Request kamu <strong>berhasil dibuat</strong>! Berikut ini datanya:</p>
+    @endif
+
     <table>
         <tr>
             <td>Pemohon</td>

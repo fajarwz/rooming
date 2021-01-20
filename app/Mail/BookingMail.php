@@ -17,24 +17,28 @@ class BookingMail extends Mailable
     public $start_time;
     public $end_time;
     public $purpose;
+    public $to_role;
     public $receiver_name;
     public $url;
+    public $status;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user_name, $room_name, $date, $start_time, $end_time, $purpose, $receiver_name, $url)
+    public function __construct($user_name, $room_name, $date, $start_time, $end_time, $purpose, $to_role, $receiver_name, $url, $status)
     {
-        $this->user_name = $user_name;
-        $this->room_name = $room_name;
-        $this->date = $date;
-        $this->start_time = $start_time;
-        $this->end_time = $end_time;
-        $this->purpose = $purpose;
-        $this->receiver_name = $receiver_name;
-        $this->url = $url;
+        $this->user_name        = $user_name;
+        $this->room_name        = $room_name;
+        $this->date             = $date;
+        $this->start_time       = $start_time;
+        $this->end_time         = $end_time;
+        $this->purpose          = $purpose;
+        $this->to_role          = $to_role;
+        $this->receiver_name    = $receiver_name;
+        $this->url              = $url;
+        $this->status           = $status;
     }
 
     /**
@@ -44,6 +48,14 @@ class BookingMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Request booking baru')->view('emails.booking');
+        if($this->to_role == 'ADMIN') {
+            if($this->status == 'CREATED') {
+                return $this->subject('Request booking baru')->view('emails.booking');
+            }
+        } elseif($this->to_role == 'USER'){
+            if($this->status == 'CREATED') {
+                return $this->subject('Request booking berhasil dibuat')->view('emails.booking');
+            }
+        }
     }
 }
