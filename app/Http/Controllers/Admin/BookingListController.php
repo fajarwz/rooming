@@ -50,10 +50,44 @@ class BookingListController extends Controller
         }
 
         if($item['date'] > $today || ($item['date'] == $today && $item['start_time'] > $now)) {
-            if($item->update($data)) {
-                session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
-            } else {
-                session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
+            if($data['status'] == 'DISETUJUI') {
+                if(
+                    BookingList::where([
+                        ['date', '=', $item['date']],
+                        ['room_id', '=', $item['room_id']],
+                        ['status', '=', 'DISETUJUI'],
+                    ])
+                    ->whereBetween('start_time', [$item['start_time'], $item['end_time']])
+                    ->count() <= 0 && 
+                    BookingList::where([
+                        ['date', '=', $item['date']],
+                        ['room_id', '=', $item['room_id']],
+                        ['status', '=', 'DISETUJUI'],
+                    ])
+                    ->whereBetween('end_time', [$item['start_time'], $item['end_time']])
+                    ->count() <= 0 &&
+                    BookingList::where([
+                        ['date', '=', $item['date']],
+                        ['room_id', '=', $item['room_id']],
+                        ['start_time', '<=', $item['start_time']],
+                        ['end_time', '>=', $item['end_time']],
+                        ['status', '=', 'DISETUJUI'],
+                    ])->count() <= 0
+                ) {
+                    if($item->update($data)) {
+                        session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
+                    } else {
+                        session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
+                    }
+                } else {
+                    session()->flash('alert-failed', 'Ruangan '.$item->room->name.' di waktu itu sudah dibooking');
+                }   
+            } elseif($data['status'] == 'DITOLAK') {
+                if($item->update($data)) {
+                    session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
+                } else {
+                    session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
+                }
             }
         }
         

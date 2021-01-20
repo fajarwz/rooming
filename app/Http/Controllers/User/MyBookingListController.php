@@ -76,12 +76,14 @@ class MyBookingListController extends Controller
             BookingList::where([
                 ['date', '=', $data['date']],
                 ['room_id', '=', $data['room_id']],
+                ['status', '=', 'DISETUJUI'],
             ])
             ->whereBetween('start_time', [$data['start_time'], $data['end_time']])
             ->count() <= 0 || 
             BookingList::where([
                 ['date', '=', $data['date']],
                 ['room_id', '=', $data['room_id']],
+                ['status', '=', 'DISETUJUI'],
             ])
             ->whereBetween('end_time', [$data['start_time'], $data['end_time']])
             ->count() <= 0 ||
@@ -90,6 +92,7 @@ class MyBookingListController extends Controller
                 ['room_id', '=', $data['room_id']],
                 ['start_time', '<=', $data['start_time']],
                 ['end_time', '>=', $data['end_time']],
+                ['status', '=', 'DISETUJUI'],
             ])->count() <= 0
         ) {
             if(BookingList::create($data)) {
