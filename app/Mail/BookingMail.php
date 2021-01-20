@@ -11,7 +11,12 @@ class BookingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $user_name;
     public $room_name;
+    public $date;
+    public $start_time;
+    public $end_time;
+    public $purpose;
     public $receiver_name;
     public $url;
 
@@ -20,9 +25,14 @@ class BookingMail extends Mailable
      *
      * @return void
      */
-    public function __construct($room_name, $receiver_name, $url)
+    public function __construct($user_name, $room_name, $date, $start_time, $end_time, $purpose, $receiver_name, $url)
     {
+        $this->user_name = $user_name;
         $this->room_name = $room_name;
+        $this->date = $date;
+        $this->start_time = $start_time;
+        $this->end_time = $end_time;
+        $this->purpose = $purpose;
         $this->receiver_name = $receiver_name;
         $this->url = $url;
     }
