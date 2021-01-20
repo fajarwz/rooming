@@ -36,12 +36,20 @@ Tambah Data User
 
     @slot('input_form')
 
+    @component('components.input-field')
+          @slot('input_label', 'Email')
+          @slot('input_type', 'text')
+          @slot('input_name', 'email')
+          @slot('form_group_class', 'required')
+          @slot('other_attributes', 'required autofocus')
+      @endcomponent
+
       @component('components.input-field')
           @slot('input_label', 'Username')
           @slot('input_type', 'text')
           @slot('input_name', 'username')
           @slot('form_group_class', 'required')
-          @slot('other_attributes', 'required autofocus')
+          @slot('other_attributes', 'required')
       @endcomponent
 
       @component('components.input-field')

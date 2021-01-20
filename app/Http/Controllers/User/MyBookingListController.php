@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 use App\Models\BookingList;
 use App\Models\Room;
 use App\Models\RoomStatus;
+use App\Models\User;
+
+use App\Mail\BookingMail;
 
 use App\Http\Requests\User\MyBookingListRequest;
 
@@ -87,11 +92,17 @@ class MyBookingListController extends Controller
         ) {
             if(BookingList::create($data)) {
                 $request->session()->flash('alert-success', 'Booking ruang '.$room[0]['name'].' berhasil ditambahkan');
+
+                $admin_name       = User::select('name')->where('role', 'ADMIN')->get();
+                $admin_email      = User::select('email')->where('role', 'ADMIN')->get();
+
+                Mail::to($admin_email)
+                ->send(new BookingMail($room[0]['name'], $admin_name, URL::to('/admin/booking-list')));
             } else {
                 $request->session()->flash('alert-failed', 'Booking ruang '.$room[0]['name'].' gagal ditambahkan');
+                return redirect()->route('my-booking-list.create');
             }
         } else {
-            // dd($room);
             $request->session()->flash('alert-failed', 'Ruangan '.$room[0]['name'].' di waktu itu sudah dibooking');
             return redirect()->route('my-booking-list.create');
         }
@@ -118,5 +129,12 @@ class MyBookingListController extends Controller
         }
         
         return redirect()->route('my-booking-list.index');
+    }
+
+    public function adminEmail() 
+    {
+        $email  = User::select('email')->where('role', 'ADMIN')->get();
+
+        return $email; 
     }
 }

@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\BookingListController;
 
 use App\Http\Controllers\ChangePassController;
 
+// use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,6 +64,12 @@ Route::prefix('/')
         ->name('my-booking-list.store');
         Route::put('/my-booking-list/{id}/cancel', [MyBookingListController::class, 'cancel'])
         ->name('my-booking-list.cancel');
+
+        // Route::get('/mail', function () {
+        //     Mail::to('fajarwindhuzulfikar@gmail.com')
+        //         ->send(new \App\Mail\BookingMail('Booking Ruangan 3', 'Admin'));
+        //     return 'Terkirim';
+        // });
     });
 
 Route::prefix('admin')

@@ -28,6 +28,7 @@
     @slot('table_header')
       <tr>
         <th>#</th>
+        <th>Email</th>
         <th>Username</th>
         <th>Nama</th>
         <th>Deskripsi</th>
@@ -52,6 +53,10 @@
                 data: 'DT_RowIndex',
                 orderable: false, 
                 searchable: false
+            },
+            {
+                name: 'email',
+                data: 'email',
             },
             {
                 name: 'username',
