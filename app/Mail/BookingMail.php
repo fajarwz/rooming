@@ -49,17 +49,26 @@ class BookingMail extends Mailable
     public function build()
     {
         if($this->to_role == 'ADMIN') {
-            if($this->status == 'CREATED') {
+            if($this->status == 'DIBUAT') {
                 return $this->subject('Request booking baru')->view('emails.booking');
-            } elseif($this->status == 'CANCELED') {
+            } elseif($this->status == 'BATAL') {
                 return $this->subject('Request booking dibatalkan')->view('emails.booking');
-            }
+            } elseif($this->status == 'DISETUJUI') {
+                return $this->subject('Request booking berhasil disetujui')->view('emails.booking');
+            } elseif($this->status == 'DITOLAK') {
+                return $this->subject('Request booking berhasil ditolak')->view('emails.booking');
+            } 
         } elseif($this->to_role == 'USER'){
-            if($this->status == 'CREATED') {
+            if($this->status == 'DIBUAT') {
                 return $this->subject('Request booking berhasil dibuat')->view('emails.booking');
-            } if($this->status == 'CANCELED') {
+            } elseif($this->status == 'BATAL') {
                 return $this->subject('Request booking berhasil dibatalkan')->view('emails.booking');
+            } elseif($this->status == 'DISETUJUI') {
+                return $this->subject('Selamat! Request booking kamu sudah disetujui')->view('emails.booking');
+            } elseif($this->status == 'DITOLAK') {
+                return $this->subject('Maaf, request booking kamu ditolak')->view('emails.booking');
             }
-        }
+        } 
+        return -1;
     }
 }

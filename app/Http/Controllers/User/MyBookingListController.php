@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 
 use App\Models\BookingList;
@@ -14,7 +13,7 @@ use App\Models\Room;
 use App\Models\RoomStatus;
 use App\Models\User;
 
-use App\Mail\BookingMail;
+use App\Jobs\SendEmail;
 
 use App\Http\Requests\User\MyBookingListRequest;
 
@@ -68,8 +67,6 @@ class MyBookingListController extends Controller
         $data['user_id']    = Auth::user()->id;
         $data['status']     = 'PENDING';
 
-        $user_name          = $this->getUserName();
-        $user_email         = $this->getUserEmail();
         $room               = Room::select('name')->where('id', $data['room_id'])->firstOrFail();
 
         if(
@@ -97,21 +94,24 @@ class MyBookingListController extends Controller
         ) {
             if(BookingList::create($data)) {
                 $request->session()->flash('alert-success', 'Booking ruang '.$room->name.' berhasil ditambahkan');
-
+                
+                $user_name          = $this->getUserName();
+                $user_email         = $this->getUserEmail();
+                
                 $admin      = $this->getAdminData();
-                $status     = 'CREATED';
+                $status     = 'DIBUAT';
 
                 $to_role    = 'USER';
 
-                Mail::to($user_email)
-                    // ->send(new BookingMail($data['user_id'], $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $admin[$i]['name'], URL::to('/my-booking-list')));
-                    ->send(new BookingMail($user_name, $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $to_role, $user_name, 'https://google.com', $status));
+                // use URL::to('/') for the url value
+
+                // URL::to('/my-booking-list)
+                dispatch(new SendEmail($user_email, $user_name, $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $to_role, $user_name, 'https://google.com', $status));
 
                 $to_role    = 'ADMIN';
 
-                Mail::to($admin->email)
-                    // ->send(new BookingMail($data['user_id'], $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $admin[$i]['name'], URL::to('/admin/booking-list')));
-                    ->send(new BookingMail($user_name, $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $to_role, $admin->name, 'https://google.com', $status));
+                // URL::to('/admin/booking-list)
+                dispatch(new SendEmail($admin->email, $user_name, $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $to_role, $admin->name, 'https://google.com', $status));
 
             } else {
                 $request->session()->flash('alert-failed', 'Booking ruang '.$room->name.' gagal ditambahkan');
@@ -137,28 +137,25 @@ class MyBookingListController extends Controller
         $item           = BookingList::findOrFail($id);
         $data['status'] = 'BATAL';
 
-        $user_name          = $this->getUserName();
-        $user_email         = $this->getUserEmail();
-
         $room               = Room::select('name')->where('id', $item->room_id)->firstOrFail();
 
         if($item->update($data)) {
             session()->flash('alert-success', 'Booking Ruang '.$room->name.' berhasil dibatalkan');
 
+            $user_name          = $this->getUserName();
+            $user_email         = $this->getUserEmail();
+
             $admin      = $this->getAdminData();
-            $status     = 'CANCELED';
+            $status     = $data['status'];
 
             $to_role    = 'USER';
 
-            Mail::to($user_email)
-                // ->send(new BookingMail($data['user_id'], $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $admin[$i]['name'], URL::to('/my-booking-list')));
-                ->send(new BookingMail($user_name, $room->name, $item->date, $item->start_time, $item->end_time, $item->purpose, $to_role, $user_name, 'https://google.com', $status));
-
+            dispatch(new SendEmail($user_email, $user_name, $room->name, $item->date, $item->start_time, $item->end_time, $item->purpose, $to_role, $user_name, 'https://google.com', $status));
+            
             $to_role    = 'ADMIN';
 
-            Mail::to($admin->email)
-                // ->send(new BookingMail($data['user_id'], $room->name, $data['date'], $data['start_time'], $data['end_time'], $data['purpose'], $admin[$i]['name'], URL::to('/admin/booking-list')));
-                ->send(new BookingMail($user_name, $room->name, $item->date, $item->start_time, $item->end_time, $item->purpose, $to_role, $admin->name, 'https://google.com', $status));
+            dispatch(new SendEmail($admin->email, $user_name, $room->name, $item->date, $item->start_time, $item->end_time, $item->purpose, $to_role, $admin->name, 'https://google.com', $status));
+            
         } else {
             session()->flash('alert-failed', 'Booking Ruang '.$room->name.' gagal dibatalkan');
         }
@@ -166,8 +163,7 @@ class MyBookingListController extends Controller
         return redirect()->route('my-booking-list.index');
     }
 
-    public function getAdminData() 
-    {
+    public function getAdminData() {
         return User::select('name','email')->where('role', 'ADMIN')->firstOrFail();
     }
 

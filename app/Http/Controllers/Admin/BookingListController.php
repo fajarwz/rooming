@@ -5,7 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
+
 use App\Models\BookingList;
+use App\Models\User;
+
+use App\Jobs\SendEmail;
 
 use DataTables;
 use Carbon\Carbon;
@@ -37,6 +43,12 @@ class BookingListController extends Controller
         $item   = BookingList::findOrFail($id);
         $today  = Carbon::today()->toDateString();
         $now    = Carbon::now()->toTimeString();
+
+        $user_name          = $item->user->name;
+        $user_email         = $item->user->email;
+
+        $admin_name         = Auth::user()->name;
+        $admin_email        = Auth::user()->email;
 
         if($value == 1) {
             $data['status'] = 'DISETUJUI';
@@ -76,6 +88,19 @@ class BookingListController extends Controller
                 ) {
                     if($item->update($data)) {
                         session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
+
+                        $to_role    = 'USER';
+
+                        // use URL::to('/') for the url value
+
+                        // URL::to('/my-booking-list)
+                        dispatch(new SendEmail($user_email, $user_name, $item->room->name, $item['date'], $item['start_time'], $item['end_time'], $item['purpose'], $to_role, $user_name, 'https://google.com', $data['status']));
+
+                        $to_role    = 'ADMIN';
+
+                        // URL::to('/admin/booking-list)
+                        dispatch(new SendEmail($admin_email, $user_name, $item->room->name, $item['date'], $item['start_time'], $item['end_time'], $item['purpose'], $to_role, $admin_name, 'https://google.com', $data['status']));
+
                     } else {
                         session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
                     }
@@ -85,10 +110,23 @@ class BookingListController extends Controller
             } elseif($data['status'] == 'DITOLAK') {
                 if($item->update($data)) {
                     session()->flash('alert-success', 'Booking Ruang '.$item->room->name.' sekarang '.$data['status']);
+
+                    $to_role    = 'USER';
+
+                    // URL::to('/my-booking-list)
+                    dispatch(new SendEmail($user_email, $user_name, $item->room->name, $item['date'], $item['start_time'], $item['end_time'], $item['purpose'], $to_role, $user_name, 'https://google.com', $data['status']));
+
+                    $to_role    = 'ADMIN';
+
+                    // URL::to('/admin/booking-list)
+                    dispatch(new SendEmail($admin_email, $user_name, $item->room->name, $item['date'], $item['start_time'], $item['end_time'], $item['purpose'], $to_role, $admin_name, 'https://google.com', $data['status']));
+
                 } else {
                     session()->flash('alert-failed', 'Booking Ruang '.$item->room->name.' gagal diupdate');
                 }
             }
+        } else {
+            session()->flash('alert-failed', 'Permintaan booking itu tidak lagi bisa diupdate');
         }
         
         return redirect()->route('booking-list.index');
