@@ -52,6 +52,12 @@ lain-lain:
 php artisan serve
 ```
 
+### Jalankan Queues
+[Queues](https://laravel.com/docs/8.x/queues) digunakan untuk pengiriman email notifikasi pembuatan, pembatalan, penyetujuan, dan penolakan request booking.
+```
+php artisan queue:work
+```
+
 ### User
 User\
 Username: user\
