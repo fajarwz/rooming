@@ -35,9 +35,6 @@
   @include('includes.datatables-scripts')
 
   <script>
-    let div = $(" [href]", document.getElementById("buttons"));
-    let add_link = div.attr("href");
-
     $.extend(true, $.fn.dataTable.defaults, {
       columnDefs: {
         targets: '_all',
@@ -48,24 +45,7 @@
       scrollCollapse: true,
       language: {
         url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Indonesian.json",
-        emptyTable: '<div class="empty-state" data-height="300" style="height: 300px;">'
-                    + '<div class="empty-state-icon">'
-                    + '<i class="fas fa-question"></i>'
-                    +  '</div>'
-                    +  '<h2>Tidak dapat menemukan data apapun</h2>'
-                    +  '<p class="lead">'
-                    +   'Mohon maaf tidak ada data apapun, untuk menghilangkan pesan ini buat setidaknya 1 data.'
-                    +  '</p>'
-                    + `<a href=${add_link} class="btn btn-primary mt-4">Buat Data Baru</a>`
-                    + '</div>',
       },
-      // responsive: {
-      //     details: {
-      //         display: $.fn.dataTable.Responsive.display.childRowImmediate,
-      //         type: 'none',
-      //         target: ''
-      //     }
-      // }
     });
   </script>
 
