@@ -2,14 +2,14 @@
 
 @section('title', 'Data Ruangan - ROOMING')
 
-@section('header-title', 'Data Ruangan')
+@section('header-title', 'Ruangan')
     
 @section('breadcrumbs')
-  <div class="breadcrumb-item"><a href="#">Ruangan</a></div>
-  <div class="breadcrumb-item active">Data Ruangan</div>
+  <div class="breadcrumb-item"><a href="#">Dashboard</a></div>
+  <div class="breadcrumb-item active">Ruangan</div>
 @endsection
 
-@section('section-title', 'Ruangan')
+@section('section-title', 'List')
     
 @section('section-lead')
   Berikut ini adalah daftar seluruh ruangan.
@@ -17,25 +17,24 @@
 
 @section('content')
 
-  @component('components.datatables')
-
-    @slot('buttons')
-      <a href="{{ route('room.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Tambah Ruangan</a>
-    @endslot
-    
-    @slot('table_id', 'room-table')
-
-    @slot('table_header')
-      <tr>
-        <th>#</th>
-        <th>Foto</th>
-        <th>Nama</th>
-        <th>Deskripsi</th>
-        <th>Kapasitas</th>
-      </tr>
-    @endslot
-      
-  @endcomponent
+  <div class="row">
+    @forelse ($rooms as $room)
+    <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+      <div class="card">
+        <div class="card-header">
+          <img src="{{ $room->photo ? Storage::url($room->photo) : asset('icons/door.svg') }}" alt="{{ $room->name }}">
+        </div>
+        <div class="card-body">
+          <div><a href="{{ route('admin.room.edit', $room->id) }}">{{ $room->name }}</a></div>
+          <div><small>{{ "$room->capacity orang" }}</small></div>
+          <div class="text-muted"><small>{{ "$room->description" }}</small></div>
+        </div>
+      </div>
+    </div>
+    @empty
+    <div class="col-12">Belum ada data</div>          
+    @endforelse
+  </div>
 
 @endsection
 
@@ -43,79 +42,6 @@
 
   <script>
   $(document).ready(function() {
-    $('#room-table').DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: '{{ route('room.json') }}',
-      order: [2, 'asc'],
-      columns: [
-      {
-        name: 'DT_RowIndex',
-        data: 'DT_RowIndex',
-        orderable: false, 
-        searchable: false
-      },
-      {
-        name: 'photo',
-        data: 'photo',
-        orderable: false, 
-        searchable: false,
-        render: function ( data, type, row ) {
-          if(data != null) {
-            return `<div class="gallery gallery-fw">`
-              + `<a href="{{ asset('storage/${data}') }}" data-toggle="lightbox">`
-                + `<img src="{{ asset('storage/${data}') }}" class="img-fluid" style="min-width: 80px; height: auto;">`
-              + `</a>`
-            + '</div>';
-          } else {
-            return '-'
-          }
-        }
-      },
-      {
-        name: 'name',
-        data: 'name',
-        render: function ( data, type, row ) {
-          var result = row.name;
-
-          var is_touch_device = 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-          if (is_touch_device) {
-            result += '<div>';
-          } else {
-            result += '<div class="table-links">';
-          }
-
-          result += '<a href="room/'+row.id+'/edit"'
-          + ' class="text-primary">Edit</a>'
-
-          + ' <div class="bullet"></div>'
-
-          + ' <a href="javascript:;" data-id="'+row.id+'" '
-          + ' data-title="Hapus"'
-          + ' data-body="Yakin ingin menghapus ini?"'
-          + ' class="text-danger"'
-          + ' id="delete-btn"'
-          + ' name="delete-btn">Hapus'
-          + ' </a>'
-          + '</div>';
-
-          return result;
-            
-        }
-      },
-      {
-        name: 'description',
-        data: 'description',
-      },
-      {
-        name: 'capacity',
-        data: 'capacity',
-      },
-    ],
-    });
-  
-
     $(document).on('click', '#delete-btn', function() {
       var id    = $(this).data('id'); 
       var title = $(this).data('title');

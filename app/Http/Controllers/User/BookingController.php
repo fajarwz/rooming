@@ -19,18 +19,8 @@ use App\Http\Requests\User\MyBookingListRequest;
 
 use DataTables;
 
-class MyBookingListController extends Controller
+class BookingController extends Controller
 {
-    public function json(){
-        $data = BookingList::where('user_id', Auth::user()->id)->with([
-            'room'
-        ]);
-
-        return DataTables::of($data)
-        ->addIndexColumn()
-        ->make(true);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +40,7 @@ class MyBookingListController extends Controller
     {
         $rooms = Room::orderBy('name')->get();
 
-        return view('pages.user.my-booking-list.create', [
+        return view('pages.user.booking.create', [
             'rooms' => $rooms,
         ]);
     }

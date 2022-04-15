@@ -1,38 +1,34 @@
 @extends('layouts.main')
 
 @section('title')
-  @if(isset($item))
-    Edit Data Ruangan - ROOMING
+  @if(isset($room))
+    Detail Ruangan - ROOMING
   @else 
     Tambah Data Ruangan - ROOMING
   @endif
 @endsection 
 
 @section('header-title')
-  @if(isset($item))
-    Edit Data Ruangan
+  @if(isset($room))
+    Detail Ruangan
   @else 
     Tambah Data Ruangan
   @endif
 @endsection 
     
 @section('breadcrumbs')
-  <div class="breadcrumb-item"><a href="#">Ruangan</a></div>
-  <div class="breadcrumb-item"><a href="{{ route('room.index') }}">Data Ruangan</a></div>
-  <div class="breadcrumb-item @if(isset($item)) '' @else 'active' @endif">
-    @if(isset($item))
-      <a href="#">Edit Data Ruangan</a>
+  <div class="breadcrumb-item"><a href="{{ route('admin.rooms.index') }}">Ruangan</a></div>
+  <div class="breadcrumb-item @if(isset($room)) '' @else 'active' @endif">
+    @if(isset($room))
+    {{ $room->name }}
     @else 
       Tambah Data Ruangan 
     @endif
   </div>
-  @isset($item)
-    <div class="breadcrumb-item active">{{ $item->name }}</div>
-  @endisset
 @endsection
 
 @section('section-title')
-  @if(isset($item))
+  @if(isset($room))
     Edit Data Ruangan
   @else 
     Tambah Data Ruangan
@@ -40,21 +36,21 @@
 @endsection 
     
 @section('section-lead')
-  Silakan isi form di bawah ini untuk @if(isset($item)) mengedit data {{ $item->name }} @else menambah data Ruangan. @endif
+  Silakan isi form di bawah ini untuk @if(isset($room)) mengedit data {{ $room->name }} @else menambah data Ruangan. @endif
 @endsection
 
 @section('content')
 
   @component('components.form')
 
-    @slot('row_class', 'justify-content-center')
+    @slot('row_class', 'justify-content-left')
     @slot('col_class', 'col-12 col-md-6')
 
-    @if(isset($item))
+    @if(isset($room))
       @slot('form_method', 'POST')
       @slot('method', 'PUT')
-      @slot('form_action', 'room.update')
-      @slot('update_id', $item->id)
+      @slot('form_action', 'admin.room.update')
+      @slot('update_id', $room->id)
     @else 
       @slot('form_method', 'POST')
       @slot('form_action', 'room.store')
@@ -68,15 +64,15 @@
           @slot('input_label', 'Nama')
           @slot('input_type', 'text')
           @slot('input_name', 'name')
-          @isset($item->name)
+          @isset($room->name)
             @slot('input_value')
-              {{ $item->name }}
+              {{ $room->name }}
             @endslot 
           @endisset
-          @isset($item)
+          @isset($room)
             @slot('other_attributes', 'disabled')
           @endisset
-          @empty($item)
+          @empty($room)
             @slot('form_group_class', 'required')
             @slot('other_attributes', 'required autofocus')
           @endempty
@@ -86,12 +82,12 @@
           @slot('input_label', 'Deskripsi')
           @slot('input_type', 'text')
           @slot('input_name', 'description')
-          @isset($item->description)
+          @isset($room->description)
             @slot('input_value')
-              {{ $item->description }}
+              {{ $room->description }}
             @endslot 
           @endisset
-          @isset($item)
+          @isset($room)
             @slot('other_attributes', 'autofocus')
           @endisset
       @endcomponent
@@ -100,9 +96,9 @@
           @slot('input_label', 'Kapasitas')
           @slot('input_type', 'number')
           @slot('input_name', 'capacity')
-          @isset($item->capacity)
+          @isset($room->capacity)
             @slot('input_value')
-              {{ $item->capacity }}
+              {{ $room->capacity }}
             @endslot 
           @endisset
       @endcomponent
@@ -111,7 +107,7 @@
           @slot('input_label', 'Foto')
           @slot('input_type', 'file')
           @slot('input_name', 'photo')
-          @isset($item)
+          @isset($room)
             @slot('help_text', 'Tidak perlu input foto jika tidak ingin mengeditnya')
           @endisset 
       @endcomponent

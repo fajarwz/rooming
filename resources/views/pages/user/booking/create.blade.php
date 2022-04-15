@@ -9,8 +9,7 @@
 @endsection 
     
 @section('breadcrumbs')
-  <div class="breadcrumb-item"><a href="#">Transaksi</a></div>
-  <div class="breadcrumb-item"><a href="{{ route('my-booking-list.index') }}">My Booking</a></div>
+  <div class="breadcrumb-item"><a href="{{ route('user.home') }}">Home</a></div>
   <div class="breadcrumb-item active">
     Buat Booking
   </div>
@@ -27,11 +26,11 @@
 @section('content')
 
   @component('components.form')
-    @slot('row_class', 'justify-content-center')
+    @slot('row_class', 'justify-content-left')
     @slot('col_class', 'col-12 col-md-6')
     
     @slot('form_method', 'POST')
-    @slot('form_action', 'my-booking-list.store')
+    @slot('form_action', 'user.booking.store')
 
     @slot('input_form')
 
@@ -52,19 +51,22 @@
       @endcomponent
 
       @component('components.input-field')
-          @slot('input_label', 'Tanggal Booking')
+          @slot('form_row', 'open')
+          @slot('col', 'col-md-6')
+          @slot('input_label', 'Dari tanggal')
           @slot('input_type', 'text')
-          @slot('input_name', 'date')
+          @slot('input_id', 'start_date')
+          @slot('input_name', 'start_date')
           @slot('input_classes', 'datepicker')
-          @slot('form_group_class', 'required')
+          @slot('form_group_class', 'col required')
           @slot('other_attributes', 'required')
       @endcomponent
 
       @component('components.input-field')
-          @slot('form_row', 'open')
+          @slot('form_row', 'close')
           @slot('col', 'col-md-6')
-          @slot('input_label', 'Waktu Mulai')
-          @slot('input_type', 'text')
+          @slot('input_label', 'Waktu')
+          @slot('input_type', 'time')
           @slot('input_id', 'start_time')
           @slot('input_name', 'start_time')
           @slot('placeholder', 'HH:mm')
@@ -74,10 +76,22 @@
       @endcomponent
 
       @component('components.input-field')
+          @slot('form_row', 'open')
+          @slot('col', 'col-md-6')
+          @slot('input_label', 'Sampai tanggal')
+          @slot('input_type', 'text')
+          @slot('input_id', 'end_date')
+          @slot('input_name', 'start_date')
+          @slot('input_classes', 'datepicker')
+          @slot('form_group_class', 'col required')
+          @slot('other_attributes', 'required')
+      @endcomponent
+
+      @component('components.input-field')
           @slot('form_row', 'close')
           @slot('col', 'col-md-6')
-          @slot('input_label', 'Waktu Selesai')
-          @slot('input_type', 'text')
+          @slot('input_label', 'Waktu')
+          @slot('input_type', 'time')
           @slot('input_id', 'end_time')
           @slot('input_name', 'end_time')
           @slot('placeholder', 'HH:mm')
@@ -106,17 +120,17 @@
 
 @endsection
 
-@push('after-style')
-  {{-- datepicker  --}}
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-  {{-- datepicker  --}}
-@endpush
-
 @push('after-script')
-  {{-- datepicker  --}}
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-  {{-- datepicker  --}}
+<script>
+  var picker = new Pikaday({ 
+    field: $('#start_date')[0],
+    toString(date, format) {
+      return date.toLocaleDateString('id-ID', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      })
+    },
+  });
+</script>
 @endpush
 
 @include('includes.notification')

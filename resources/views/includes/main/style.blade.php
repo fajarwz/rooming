@@ -8,3 +8,5 @@
 
 {{-- admin css --}}
 <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">

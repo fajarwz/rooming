@@ -16,10 +16,7 @@
         
         <div class="table-responsive">
           <table class="table table-striped display nowrap w-100" data-scroll-y="400" id="{{ $table_id }}">
-            <thead>
-              {{ $table_header }}
-            </thead>
-            
+              {{ $table_content }}
           </table>
         </div>
       </div>

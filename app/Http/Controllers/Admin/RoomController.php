@@ -13,14 +13,10 @@ use DataTables;
 
 class RoomController extends Controller
 {
-    public function json(){
-        $data = Room::all();
-
-        return DataTables::of($data)
-        ->addIndexColumn()
-        ->make(true);
+    public function __construct(Room $room)
+    {
+        $this->room = $room;
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +24,9 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.room.index');
+        return view('pages.admin.room.index', [
+            'rooms' => $this->room::paginate(),
+        ]);
     }
 
     /**
@@ -65,7 +63,7 @@ class RoomController extends Controller
             $request->session()->flash('alert-failed', 'Ruang '.$data['name'].' gagal ditambahkan');
         }
 
-        return redirect()->route('room.index');
+        return redirect()->route('admin.room.index');
     }
 
     /**
@@ -85,12 +83,10 @@ class RoomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        $item = Room::findOrFail($id);
-
         return view('pages.admin.room.edit_or_create', [
-            'item'  => $item 
+            'room'  => $this->room::findOrFail($id),
         ]);
     }
 
@@ -119,7 +115,7 @@ class RoomController extends Controller
             $request->session()->flash('alert-failed', 'Ruang '.$item->name.' gagal diupdate');
         }
         
-        return redirect()->route('room.index');
+        return redirect()->route('admin.room.index');
     }
 
     /**
@@ -138,6 +134,6 @@ class RoomController extends Controller
             session()->flash('alert-failed', 'Ruang '.$item->name.' gagal dihapus');
         }
 
-        return redirect()->route('room.index');
+        return redirect()->route('admin.room.index');
     }
 }

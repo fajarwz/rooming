@@ -10,7 +10,7 @@
 
 @endif
 
-  @if ($input_type == 'text' || $input_type == 'number' || $input_type == 'password' || $input_type == 'file' || $input_type == 'hidden')
+  @if ($input_type == 'text' || $input_type == 'time' || $input_type == 'number' || $input_type == 'password' || $input_type == 'file' || $input_type == 'hidden')
 
       <input type="{{ $input_type }}" 
       @isset($input_id) {{ 'id='.$input_id }} @endisset

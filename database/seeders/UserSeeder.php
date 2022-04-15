@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
@@ -14,51 +14,47 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'id'        => 1,
-            'name'      => 'Admin',
-            'username'  => 'admin',
-            'password'  => bcrypt('admin'),
-            'role'      => 'ADMIN',
-            'email'      => 'admin@admin.com',
-        ]);
-
-        User::create([
-            'id'            => 2,
-            'name'          => 'User',
-            'username'      => 'user',
-            'password'      => bcrypt('user'),
-            'description'   => 'Accounting Staff',
-            'role'          => 'USER',
-            'email'      => 'user@user.com',
-        ]);
-
-        User::create([
-            'id'            => 3,
-            'name'          => 'Fajarwz',
-            'username'      => 'fajar',
-            'password'      => bcrypt('fajar'),
-            'description'   => 'IT Staff',
-            'role'          => 'USER',
-            'email'      => 'fajar@gmail.com',
-        ]);
-
-        User::create([
-            'id'        => 4,
-            'name'      => 'Foo',
-            'username'  => 'foo',
-            'password'  => bcrypt('foo'),
-            'role'      => 'USER',
-            'email'      => 'foo@gmail.com',
-        ]);
-
-        User::create([
-            'id'        => 5,
-            'name'      => 'Bar',
-            'username'  => 'bar',
-            'password'  => bcrypt('bar'),
-            'role'      => 'USER',
-            'email'      => 'bar@gmail.com',
+        User::insert([
+            [
+                'id' => 1,
+                'name' => 'Admin',
+                'password' => bcrypt('admin'),
+                'description' => '',
+                'role_id' => 1,
+                'email' => 'admin@admin.com',
+            ],
+            [
+                'id' => 2,
+                'name' => 'User',
+                'password' => bcrypt('user'),
+                'description' => 'Accounting Staff',
+                'role_id' => 2,
+                'email' => 'user@user.com',
+            ],
+            [
+                'id' => 3,
+                'name' => 'Fajarwz',
+                'password' => bcrypt('fajar'),
+                'description' => 'IT Staff',
+                'role_id' => 2,
+                'email' => 'fajar@gmail.com',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Foo',
+                'password' => bcrypt('foo'),
+                'description' => '',
+                'role_id' => 2,
+                'email' => 'foo@gmail.com',
+            ],
+            [
+                'id' => 5,
+                'name' => 'Bar',
+                'password' => bcrypt('bar'),
+                'description' => '',
+                'role_id' => 2,
+                'email' => 'bar@gmail.com',
+            ]
         ]);
     }
 }
